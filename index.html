@@ -108,33 +108,6 @@
   to{opacity:1;transform:none}
 }
 
-/* 研究發現數據列 */
-.stats{
-  margin-top:var(--space-24);
-  border-top:1px solid var(--border);padding-top:var(--space-8);
-}
-.stats-h{
-  font-size:var(--fs-label);font-weight:var(--fw-bold);
-  color:var(--text-primary);margin-bottom:var(--space-8);
-}
-.stat-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:var(--space-12);
-}
-.stat{padding-top:var(--space-4);border-top:2px solid var(--green-500)} /* 綠只當圖形，不當文字 */
-.stat-n{
-  font-family:var(--font-data);font-variant-numeric:tabular-nums;
-  font-size:var(--fs-h1);font-weight:var(--fw-black);
-  line-height:var(--lh-tight);color:var(--text-primary);
-  display:flex;align-items:baseline;gap:var(--space-2);
-}
-.stat-n .of{font-size:var(--fs-h4);font-weight:var(--fw-medium);color:var(--text-muted)}
-.stat-d{
-  margin-top:var(--space-3);
-  font-size:var(--fs-body-sm);line-height:var(--lh-base);color:var(--text-secondary);
-}
-.stat-d b{color:var(--text-primary);font-weight:var(--fw-bold)}
-
 /* 範圍聲明 */
 .scope-block{
   margin-top:var(--space-12);
@@ -165,6 +138,8 @@
   font-size:var(--fs-caption);color:var(--text-muted);
   margin-top:var(--space-3);line-height:var(--lh-base);
 }
+/* 免責聲明現在是該欄唯一元素，去掉上邊距才會與左欄首行切齊 */
+.scope-grid > div > .scope-cap:first-child{margin-top:0}
 
 /* CTA */
 .index-cta-row{
@@ -231,7 +206,6 @@
 @media (max-width:1080px){
   .hero{grid-template-columns:1fr;gap:var(--space-10)}
   .hero-media{order:-1}          /* 窄螢幕先看到產品，再讀文案 */
-  .stat-grid{grid-template-columns:1fr;gap:var(--space-8)}
 }
 @media (max-width:768px){
   .index-main{padding:var(--space-12) 20px var(--space-10)}
@@ -239,9 +213,7 @@
   .scope-grid{grid-template-columns:1fr;gap:var(--space-6)}
   .page-index{grid-template-columns:1fr;margin-top:var(--space-16)}
   .btn-start{width:100%;justify-content:center}
-  .stats{margin-top:var(--space-16)}
   .hero-cap{margin-left:9.3%;margin-right:4.8%}
-  .stat-n{font-size:var(--fs-h2)}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -308,34 +280,6 @@
     </a>
   </section>
 
-  <!-- 研究發現：三個數字，全部出自可用性測試與問卷 -->
-  <section class="stats" aria-labelledby="stats-h">
-    <h2 class="stats-h" id="stats-h">為什麼要重做這兩頁</h2>
-    <dl class="stat-grid">
-      <div class="stat">
-        <dt class="stat-n"><span data-numeric>3</span> <span class="of">/ 5</span></dt>
-        <dd class="stat-d">
-          <b>受測者選錯了機型。</b>在「找一台方便攜帶的筆電」任務中，
-          5 人有 3 人選了 2 kg 以上的機型——重量被併在規格字串的第三順位，掃視時看不見。
-        </dd>
-      </div>
-      <div class="stat">
-        <dt class="stat-n"><span data-numeric>50+</span> <span class="of">→ 6</span></dt>
-        <dd class="stat-d">
-          <b>比較欄位收斂。</b>Acer 現行比較頁列出超過 50 項規格、依零件分組，
-          重量排在第 11 組且經常缺值。本設計只留 6 項買家真的會拿來做決定的。
-        </dd>
-      </div>
-      <div class="stat">
-        <dt class="stat-n"><span data-numeric>5</span> <span class="of">/ 5</span></dt>
-        <dd class="stat-d">
-          <b>價格是唯一全員勾選的項目。</b>問卷問「產品頁最注意什麼」，
-          只有價格 5 人全選。而 Acer 現行的比較頁完全不顯示價格。
-        </dd>
-      </div>
-    </dl>
-  </section>
-
   <!-- 範圍聲明 -->
   <section class="scope-block" aria-labelledby="scope-h">
     <h2 class="scope-h" id="scope-h">範圍聲明</h2>
@@ -350,13 +294,6 @@
         </ul>
       </div>
       <div>
-        <ul class="scope-list">
-          <li><b>刻意沒有實作</b></li>
-          <li>首頁、搜尋、登入、購物車與結帳流程</li>
-          <li>詳細頁只做 Swift Go 14 AI 一台；其餘五台會導向同一頁並顯示提示</li>
-          <li>分頁列為靜態視覺，六台一頁顯示完</li>
-          <li>導覽列其餘項目與頁尾連結為靜態樣式，不會有點了沒反應的元素</li>
-        </ul>
         <p class="scope-cap">
           概念性專案，與 Acer 官方無關。規格數據取自 Acer 台灣官方網站產品頁。<br>
           Product imagery and specifications © Acer Inc., used for conceptual purposes only.
