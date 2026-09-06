@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Acer Redesign 概念 demo">
+  <rect width="32" height="32" rx="7" fill="#0D0D0D"/>
+  <!-- 筆電剪影：螢幕 + 底座 -->
+  <rect x="8" y="9" width="16" height="11" rx="1.5" fill="none" stroke="#83B81A" stroke-width="2"/>
+  <path d="M5.5 23.5h21" stroke="#83B81A" stroke-width="2" stroke-linecap="round"/>
+</svg>

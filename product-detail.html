@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swift Go 14 AI — Acer Redesign 概念 Demo</title>
+<meta name="description" content="概念性 redesign 的產品詳細頁：上半頁情緒敘事、下半頁理性規格，Spec Visualization 卡在交界處把「輕盈」換算成 1.39 kg。售價與 CTA 全頁跟隨。與 Acer 官方無關。">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="canonical" href="https://leortsai.github.io/acer-redesign-demo/product-detail.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Acer Redesign — 概念性 Demo">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="Swift Go 14 AI — Acer Redesign 概念 Demo">
+<meta property="og:description" content="概念性 redesign 的產品詳細頁：上半頁情緒敘事、下半頁理性規格，Spec Visualization 卡在交界處把「輕盈」換算成 1.39 kg。售價與 CTA 全頁跟隨。與 Acer 官方無關。">
+<meta property="og:url" content="https://leortsai.github.io/acer-redesign-demo/product-detail.html">
+<meta property="og:image" content="https://leortsai.github.io/acer-redesign-demo/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Acer 官網 Redesign — 讓規格表成為主角：兩台筆電的規格比較介面，價格與較優規格以綠色標示">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Swift Go 14 AI — Acer Redesign 概念 Demo">
+<meta name="twitter:description" content="概念性 redesign 的產品詳細頁：上半頁情緒敘事、下半頁理性規格，Spec Visualization 卡在交界處把「輕盈」換算成 1.39 kg。售價與 CTA 全頁跟隨。與 Acer 官方無關。">
+<meta name="twitter:image" content="https://leortsai.github.io/acer-redesign-demo/images/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 範圍聲明 -->
+<div class="scope-banner" role="note">
+  <span>概念性 demo · 實作筆電列表頁與產品詳細頁 · 與 Acer 官方無關</span>
+  <span>首頁與其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
+</div>
+
+<!-- 機型提示（§2.2） -->
+<div class="model-notice" id="modelNotice" role="note" hidden>
+  <span class="dot">ⓘ</span>
+  <span>概念性 demo 僅實作 Swift Go 14 AI 的詳細頁</span>
+</div>
+
+<!-- nav：靜態一條，「筆電」連回列表頁，無 Predator / ConceptD -->
+<header class="nav">
+  <a class="nav-back m-only" href="laptops-list.html" aria-label="回筆電列表">‹</a>
+  <div class="nav-logo"><img src="images/acer-logo-green.svg" alt="Acer"></div>
+  <nav class="nav-links" aria-label="主導覽（示意）">
+    <a class="nav-link is-active" href="laptops-list.html">筆電</a>
+    <span class="nav-link">桌機</span>
+    <span class="nav-link">顯示器</span>
+    <span class="nav-link">配件</span>
+    <span class="nav-link">商業方案</span>
+  </nav>
+  <div class="nav-icons">
+    <span class="nav-icon" role="img" aria-label="搜尋（示意，未實作）">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="6.2"/><path d="m13.6 13.6 4 4" stroke-linecap="round"/></svg>
+    </span>
+    <span class="nav-icon" role="img" aria-label="購物車（示意，未實作）">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3h2.2l2 10.4h8.6l1.8-7.2H5.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.6" cy="16.6" r="1.3"/><circle cx="13.9" cy="16.6" r="1.3"/></svg>
+    </span>
+  </div>
+</header>
+
+<!-- breadcrumb：「筆記型電腦」連回列表頁 -->
+<nav class="breadcrumb" aria-label="breadcrumb">
+  <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">首頁</a>
+  <span class="sep">›</span>
+  <a href="laptops-list.html">筆記型電腦</a>
+  <span class="sep">›</span>
+  <span class="cur model-no" aria-current="page">Swift Go 14 AI</span>
+</nav>
+
+<main>
+  <!-- Zone 1a Hero -->
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <div class="hero-copy">
+      <div class="hero-tags reveal">
+        <span class="pill-series model-no">Swift</span>
+        <span class="yr"><span data-numeric>2025</span> 新款</span>
+      </div>
+      <h1 id="heroTitle" class="reveal">Swift Go 14 AI</h1>
+      <p class="hero-rating reveal" data-numeric>★★★★½  4.5  (128 評測)</p>
+      <div class="hero-chips reveal">
+        <span class="hero-chip" data-numeric>14" WUXGA OLED</span>
+        <span class="hero-chip" data-numeric>Core Ultra 7</span>
+        <span class="hero-chip" data-numeric>1.39 kg</span>
+        <span class="hero-chip"><span data-numeric>16hr</span> 電池</span>
+      </div>
+      <p class="hero-lede reveal reveal-late">鋁合金輕薄機身搭載 Intel Core Ultra 7 258V 處理器，14 吋 OLED 顯示，為創作者與商旅人士而生。</p>
+      <div class="hero-rule"></div>
+      <p class="hero-price-label">建議售價</p>
+      <p class="hero-price price">NT$46,900</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" data-toast="checkout">加入購物車</button>
+        <button class="btn-secondary" data-toast="compare">加入比較</button>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="images/swift-go-14-ai-hero.png" alt="Swift Go 14 AI 藍色鋁合金筆電，螢幕開啟的產品照">
+    </div>
+  </section>
+
+  <!-- Zone 1b 敘事 ×3 -->
+  <section aria-label="設計故事">
+    <div class="story-row" id="story-1">
+      <div class="story-media reveal">
+        <img src="images/swift-go-14-ai-story-1.png" alt="兩台 Swift Go 14 AI，一開一闔，展示鋁合金機身">
+      </div>
+      <div class="story-text">
+        <p class="story-kicker reveal reveal-late">設計 01 — 材質</p>
+        <h2 class="story-title reveal reveal-late">輕盈，<br>不輕薄。</h2>
+        <p class="story-body reveal reveal-late">鋁合金機身最薄處僅 <span data-numeric>9.7mm</span>，<span data-numeric>1.39kg</span> 的重量，一整天帶著走也不費力。</p>
+        <a class="story-link reveal reveal-late" href="#spec-table">了解機身工藝 →</a>
+      </div>
+    </div>
+    <div class="story-row" id="story-2">
+      <div class="story-text">
+        <p class="story-kicker reveal reveal-late">設計 02 — 顯示</p>
+        <h2 class="story-title reveal reveal-late">看見，<br>更多色彩。</h2>
+        <p class="story-body reveal reveal-late"><span data-numeric>1920×1200 WUXGA OLED</span> 面板，完美的純黑、更寬廣的可視角度，以及鮮明亮麗的對比度。</p>
+        <a class="story-link reveal reveal-late" href="#spec-table">了解顯示技術 →</a>
+      </div>
+      <div class="story-media reveal">
+        <img src="images/swift-go-14-ai-story-2.png" alt="Swift Go 14 AI 正面，OLED 螢幕顯示高彩度畫面">
+      </div>
+    </div>
+    <div class="story-row" id="story-3">
+      <div class="story-media reveal">
+        <img src="images/swift-go-14-ai-story-3.png" alt="Swift Go 14 AI 鍵盤俯視，含 Copilot 鍵">
+      </div>
+      <div class="story-text">
+        <p class="story-kicker reveal reveal-late">設計 03 — AI</p>
+        <h2 class="story-title reveal reveal-late">AI，<br>重新定義工作。</h2>
+        <p class="story-body reveal reveal-late">Intel Core Ultra NPU <span data-numeric>48 TOPS</span>，AI 即時降噪、智慧電源管理、Copilot 本機運算，讓每一分鐘都更有效率。</p>
+        <a class="story-link reveal reveal-late" href="#spec-table">了解 AI 功能 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone 2 Spec Visualization（pin + scrub 的載體） -->
+  <section class="spec-viz" id="spec-viz" aria-labelledby="vizTitle">
+    <div class="viz-head">
+      <p class="viz-kicker">規格深度解析</p>
+      <h2 class="viz-title" id="vizTitle">數字背後的故事</h2>
+    </div>
+    <div class="viz-body">
+      <div class="viz-stage">
+
+        <!-- 模組 1：重量對比（軸線 0 起算） -->
+        <div class="viz-module" id="mod-weight" role="img"
+             aria-label="重量對比長條圖：Swift Go 14 AI 1.39 公斤、TravelMate P4 14 1.42 公斤、Swift X 14 1.58 公斤，軸線從 0 起算，Swift Go 14 AI 比 Swift X 14 輕 190 公克">
+          <h3 class="viz-module-title"><span data-numeric>1.39 kg</span> <span class="zh">重量對比</span></h3>
+          <div class="wbar-group">
+            <div class="wbar-row is-hero" id="wbar-0">
+              <div class="wbar-head">
+                <span class="wbar-name model-no">Swift Go 14 AI</span>
+                <span class="wbar-val spec-value" data-wval="1.39" data-dec="2">1.39 kg</span>
+              </div>
+              <div class="wbar-track"><div class="wbar-fill" style="width:86.9%"></div></div>
+              <p class="wbar-diff" id="wbarDiff">比 Swift X 14 輕 <span data-numeric>190</span> 公克</p>
+            </div>
+            <div class="wbar-row" id="wbar-1">
+              <div class="wbar-head">
+                <span class="wbar-name model-no">TravelMate P4 14</span>
+                <span class="wbar-val spec-value" data-wval="1.42" data-dec="2">1.42 kg</span>
+              </div>
+              <div class="wbar-track"><div class="wbar-fill" style="width:88.8%"></div></div>
+            </div>
+            <div class="wbar-row" id="wbar-2">
+              <div class="wbar-head">
+                <span class="wbar-name model-no">Swift X 14</span>
+                <span class="wbar-val spec-value" data-wval="1.58" data-dec="2">1.58 kg</span>
+              </div>
+              <div class="wbar-track"><div class="wbar-fill" style="width:98.8%"></div></div>
+            </div>
+          </div>
+          <div class="axis-ticks" aria-hidden="true"><span>0</span><span>0.4</span><span>0.8</span><span>1.2</span><span>1.6 kg</span></div>
+        </div>
+
+        <!-- 模組 2：電池續航時間軸 -->
+        <div class="viz-module" id="mod-battery" role="img"
+             aria-label="電池續航時間軸：實測續航 16 小時，超過 8 小時的一日工作基準">
+          <h3 class="viz-module-title"><span class="zh">電池續航</span></h3>
+          <div class="battery-wrap">
+            <div class="battery-head">
+              <span class="battery-big spec-value" id="batteryNum" data-numeric>16</span>
+              <span class="battery-unit">hr 實測續航</span>
+              <span class="battery-flag" id="batteryFlag">超過一天工作 ✓</span>
+            </div>
+            <div class="battery-axis">
+              <div class="battery-fill" id="batteryFill" style="width:88.9%"></div>
+              <div class="battery-marker" style="left:44.4%">
+                <span class="battery-marker-label"><span data-numeric>8 hr</span> · 一日工作基準</span>
+              </div>
+            </div>
+            <div class="battery-ticks" aria-hidden="true"><span>0</span><span>6</span><span>12</span><span>18 hr</span></div>
+          </div>
+        </div>
+
+        <!-- 模組 3：連接埠側視圖（自繪 SVG，可 hover / focus / 點擊） -->
+        <div class="viz-module" id="mod-ports">
+          <h3 class="viz-module-title"><span class="zh">連接埠</span></h3>
+          <div class="ports-wrap">
+            <div class="port-card">
+              <p class="port-card-title">連接埠 — 左側</p>
+              <p class="port-card-sub">Thunderbolt 4 · USB-C · HDMI 2.1</p>
+              <svg class="port-svg" viewBox="0 0 660 150" aria-label="左側連接埠側視圖">
+                <rect class="chassis" x="0" y="20" width="660" height="40" rx="5"/>
+                <g class="port" tabindex="0" role="button" data-port-label="Thunderbolt 4 — 40Gbps · PD · DP2.1"
+                   aria-label="Thunderbolt 4，40Gbps，PD，DP2.1">
+                  <rect class="port-cut" x="103.5" y="35" width="13" height="10" rx="3"/>
+                  <line class="leader" x1="110" y1="62" x2="110" y2="78"/>
+                  <text class="port-name" x="110" y="94" text-anchor="middle">Thunderbolt 4</text>
+                  <text class="port-spec" x="110" y="108" text-anchor="middle">40Gbps · PD · DP2.1</text>
+                </g>
+                <g class="port" tabindex="0" role="button" data-port-label="USB-C — 3.2 Gen2 · 10Gbps"
+                   aria-label="USB-C，3.2 Gen2，10Gbps">
+                  <rect class="port-cut" x="323.5" y="35" width="13" height="10" rx="3"/>
+                  <line class="leader" x1="330" y1="62" x2="330" y2="78"/>
+                  <text class="port-name" x="330" y="94" text-anchor="middle">USB-C</text>
+                  <text class="port-spec" x="330" y="108" text-anchor="middle">3.2 Gen2 · 10Gbps</text>
+                </g>
+                <g class="port" tabindex="0" role="button" data-port-label="HDMI 2.1 — 4K@120Hz"
+                   aria-label="HDMI 2.1，4K 120Hz">
+                  <rect class="port-cut" x="539" y="34.5" width="22" height="11" rx="1"/>
+                  <line class="leader" x1="550" y1="62" x2="550" y2="78"/>
+                  <text class="port-name" x="550" y="94" text-anchor="middle">HDMI 2.1</text>
+                  <text class="port-spec" x="550" y="108" text-anchor="middle">4K@120Hz</text>
+                </g>
+              </svg>
+              <p class="port-touch-label" data-port-caption></p>
+              <p class="port-caption model-no">Swift Go 14 AI · SFG14-75</p>
+            </div>
+            <div class="port-card">
+              <p class="port-card-title">連接埠 — 右側</p>
+              <p class="port-card-sub">USB-A × 2 · microSD · 3.5mm</p>
+              <svg class="port-svg" viewBox="0 0 660 150" aria-label="右側連接埠側視圖">
+                <rect class="chassis" x="0" y="20" width="660" height="40" rx="5"/>
+                <g class="port" tabindex="0" role="button" data-port-label="USB-A — 3.2 Gen1 · 5Gbps"
+                   aria-label="USB-A，3.2 Gen1，5Gbps">
+                  <rect class="port-cut" x="74" y="34.5" width="17" height="11" rx="1"/>
+                  <line class="leader" x1="82.5" y1="62" x2="82.5" y2="78"/>
+                  <text class="port-name" x="82.5" y="94" text-anchor="middle">USB-A</text>
+                  <text class="port-spec" x="82.5" y="108" text-anchor="middle">3.2 Gen1 · 5Gbps</text>
+                </g>
+                <g class="port" tabindex="0" role="button" data-port-label="USB-A — 3.2 Gen1 · 5Gbps"
+                   aria-label="USB-A，3.2 Gen1，5Gbps">
+                  <rect class="port-cut" x="239" y="34.5" width="17" height="11" rx="1"/>
+                  <line class="leader" x1="247.5" y1="62" x2="247.5" y2="78"/>
+                  <text class="port-name" x="247.5" y="94" text-anchor="middle">USB-A</text>
+                  <text class="port-spec" x="247.5" y="108" text-anchor="middle">3.2 Gen1 · 5Gbps</text>
+                </g>
+                <g class="port" tabindex="0" role="button" data-port-label="microSD — Card Reader"
+                   aria-label="microSD 讀卡機">
+                  <rect class="port-cut" x="405.5" y="38" width="14" height="4" rx="1"/>
+                  <line class="leader" x1="412.5" y1="62" x2="412.5" y2="78"/>
+                  <text class="port-name" x="412.5" y="94" text-anchor="middle">microSD</text>
+                  <text class="port-spec" x="412.5" y="108" text-anchor="middle">Card Reader</text>
+                </g>
+                <g class="port" tabindex="0" role="button" data-port-label="3.5mm — 耳機 + 麥克風"
+                   aria-label="3.5mm 耳機麥克風複合孔">
+                  <circle class="port-cut" cx="577.5" cy="40" r="5.5"/>
+                  <line class="leader" x1="577.5" y1="62" x2="577.5" y2="78"/>
+                  <text class="port-name" x="577.5" y="94" text-anchor="middle">3.5mm</text>
+                  <text class="port-spec" x="577.5" y="108" text-anchor="middle">耳機 + 麥克風</text>
+                </g>
+              </svg>
+              <p class="port-touch-label" data-port-caption></p>
+              <p class="port-caption model-no">Swift Go 14 AI · SFG14-75</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-side">
+        <div class="viz-descs">
+          <p class="viz-desc" id="desc-weight">三台 <span data-numeric>14</span> 吋機型的重量，放在同一條從 <span data-numeric>0</span> 起算的軸線上。差距是多少，就顯示多少。</p>
+          <p class="viz-desc" id="desc-battery">實測續航 <span data-numeric>16</span> 小時，越過 <span data-numeric>8</span> 小時的一日工作基準線。</p>
+          <p class="viz-desc" id="desc-ports">Thunderbolt 4、USB-C、HDMI 2.1 與雙 USB-A。滑過或點擊每個埠，查看它的規格。</p>
+        </div>
+        <div class="viz-cards">
+          <div class="viz-card"><p class="n spec-value">48</p><p class="l">TOPS AI 算力</p></div>
+          <div class="viz-card"><p class="n spec-value">16h</p><p class="l">電池續航</p></div>
+          <div class="viz-card"><p class="n spec-value">1.39</p><p class="l">kg 起</p></div>
+          <div class="viz-card"><p class="n spec-value">WUXGA</p><p class="l">OLED 顯示</p></div>
+        </div>
+      </div>
+    </div>
+    <a class="viz-skip" id="vizSkip" href="#spec-table">跳過 ↓</a>
+  </section>
+
+  <!-- Zone 3 完整規格表 -->
+  <section class="spec-table" id="spec-table" aria-labelledby="specTitle">
+    <h2 class="section-title" id="specTitle">完整規格表</h2>
+    <dl class="spec-rows">
+      <div class="spec-row">
+        <dt>處理器</dt>
+        <dd class="spec-value">Intel Core Ultra 7 258V · 8C/8T · NPU <span class="cnt" data-val="48" data-dec="0">48</span> TOPS</dd>
+      </div>
+      <div class="spec-row">
+        <dt>記憶體</dt>
+        <dd class="spec-value"><span class="cnt" data-val="32" data-dec="0">32</span>GB LPDDR5X (板載)</dd>
+      </div>
+      <div class="spec-row">
+        <dt>顯示器</dt>
+        <dd class="spec-value">14" <span class="cnt" data-val="1920" data-dec="0">1920</span>×<span class="cnt" data-val="1200" data-dec="0">1200</span> OLED 60Hz · CineCrystal 亮面</dd>
+      </div>
+      <div class="spec-row">
+        <dt>連接埠</dt>
+        <dd class="spec-value">2× Thunderbolt 4 · 2× USB-A 3.2 · HDMI 2.1</dd>
+      </div>
+      <div class="spec-row">
+        <dt>電池</dt>
+        <dd class="spec-value">最長 <span class="cnt" data-val="16" data-dec="0">16</span>hr · USB-C 快充</dd>
+      </div>
+      <div class="spec-row">
+        <dt>重量</dt>
+        <dd class="spec-value"><span class="cnt" data-val="1.39" data-dec="2">1.39</span> kg</dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- Zone 4 評測聚合 -->
+  <section class="reviews" id="reviews" aria-labelledby="reviewsTitle">
+    <div class="reviews-head">
+      <h2 class="section-title" id="reviewsTitle">評測聚合</h2>
+      <p class="reviews-score spec-value">4.5</p>
+      <div>
+        <p class="reviews-stars" data-numeric>★★★★½</p>
+        <p class="reviews-count"><span data-numeric>128</span> 則評測</p>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <article class="review-card">
+        <div class="review-src">
+          <span class="review-avatar">PC</span>
+          <div>
+            <p class="review-name">PCMag</p>
+            <p class="review-stars">★★★★★  5.0</p>
+          </div>
+        </div>
+        <p class="review-quote">"最輕薄的 AI 筆電之一，OLED 顯示令人驚艷，是 2025 年度推薦。"</p>
+      </article>
+      <article class="review-card">
+        <div class="review-src">
+          <span class="review-avatar">NT</span>
+          <div>
+            <p class="review-name">Notebookcheck</p>
+            <p class="review-stars">★★★★½  4.5</p>
+          </div>
+        </div>
+        <p class="review-quote">"續航表現優異，AI 功能實用，機身做工精良，超越同價位競品。"</p>
+      </article>
+      <article class="review-card">
+        <div class="review-src">
+          <span class="review-avatar">TW</span>
+          <div>
+            <p class="review-name">Tom's Guide</p>
+            <p class="review-stars">★★★★½  4.5</p>
+          </div>
+        </div>
+        <p class="review-quote">"輕若無物的機身、驚人的電池壽命，是最佳旅行筆電候選人。"</p>
+      </article>
+      <article class="review-card">
+        <div class="review-src">
+          <span class="review-avatar">LR</span>
+          <div>
+            <p class="review-name">LaptopReview</p>
+            <p class="review-stars">★★★★  4.0</p>
+          </div>
+        </div>
+        <p class="review-quote">"散熱略顯激進，但整體效能表現超越預期，CP 值極高。"</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Zone 5 購買 -->
+  <section class="purchase" id="purchase" aria-label="購買方式">
+    <div class="purchase-col is-store">
+      <p class="purchase-kicker">購買方式</p>
+      <h2 class="purchase-title">官方旗艦店</h2>
+      <p class="purchase-desc">正品保障 · 免費到府 · 7天無條件退換</p>
+      <button class="purchase-cta" data-toast="checkout">立即訂購</button>
+    </div>
+    <div class="purchase-col">
+      <p class="purchase-kicker">保固方案</p>
+      <div role="radiogroup" aria-label="保固方案">
+        <button class="warranty-opt" role="radio" aria-checked="true">
+          <span class="warranty-radio"></span>
+          <span>
+            <span class="warranty-name">標準 <span data-numeric>1</span> 年保固</span>
+            <span class="warranty-note" style="display:block">隨機附贈</span>
+          </span>
+        </button>
+        <button class="warranty-opt" role="radio" aria-checked="false">
+          <span class="warranty-radio"></span>
+          <span>
+            <span class="warranty-name">延長 <span data-numeric>3</span> 年保固</span>
+            <span class="warranty-note" style="display:block">加購 <span data-numeric>NT$2,900</span></span>
+          </span>
+        </button>
+        <button class="warranty-opt" role="radio" aria-checked="false">
+          <span class="warranty-radio"></span>
+          <span>
+            <span class="warranty-name"><span data-numeric>ADH</span> 意外險 <span data-numeric>3</span> 年</span>
+            <span class="warranty-note" style="display:block">加購 <span data-numeric>NT$4,800</span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="purchase-col">
+      <p class="purchase-kicker">實體通路</p>
+      <div>
+        <div class="retailer-row"><span class="retailer-name">燦坤</span><span class="retailer-stock">有貨</span></div>
+        <div class="retailer-row"><span class="retailer-name">全國電子</span><span class="retailer-stock">有貨</span></div>
+        <div class="retailer-row"><span class="retailer-name model-no">PChome</span><span class="retailer-stock">有貨</span></div>
+        <div class="retailer-row"><span class="retailer-name">momo購物網</span><span class="retailer-stock">有貨</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone 6 FAQ -->
+  <section class="faq" id="faq" aria-labelledby="faqTitle">
+    <div class="faq-inner">
+      <h2 class="section-title" id="faqTitle">常見問題</h2>
+      <div style="height:32px"></div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a1" id="faq-q1">
+          Swift Go 14 AI 有哪些顏色可選？<span class="chev" aria-hidden="true">›</span>
+        </button>
+        <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1"><div>
+          <p>本機型為藍色機身，採鋁合金材質，最薄處僅 <span data-numeric>9.7mm</span>、重量 <span data-numeric>1.39kg</span>。</p>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a2" id="faq-q2">
+          記憶體可以自行升級嗎？<span class="chev" aria-hidden="true">›</span>
+        </button>
+        <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2"><div>
+          <p>記憶體為板載式設計，無法自行升級。本機型配置 <span data-numeric>32GB LPDDR5X</span>，購買後無法擴充。</p>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a3" id="faq-q3">
+          支援哪些作業系統？<span class="chev" aria-hidden="true">›</span>
+        </button>
+        <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3"><div>
+          <p>預裝 Windows 11 Home，屬 Copilot+ PC 機種，原廠提供 <span data-numeric>2</span> 年保固。</p>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a4" id="faq-q4">
+          充電器規格為何？可以用其他 USB-C 充電嗎？<span class="chev" aria-hidden="true">›</span>
+        </button>
+        <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4"><div>
+          <p>標配 <span data-numeric>65W USB-C GaN</span> 充電器，亦支援市售 <span data-numeric>USB-PD 45W</span> 以上充電器，Thunderbolt 4 兩個接口皆可充電。</p>
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a5" id="faq-q5">
+          保固範圍包含什麼？<span class="chev" aria-hidden="true">›</span>
+        </button>
+        <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5"><div>
+          <p>標準 <span data-numeric>1</span> 年全球保固，包含製造瑕疵及硬體故障，不含意外損壞。可加購 ADH 意外保險方案。</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer class="footer">
+  <div class="footer-cols">
+    <div class="footer-col is-brand">
+      <div class="footer-logo"><img src="images/acer-logo-white.svg" alt="Acer"></div>
+      <p class="footer-about">致力於打破科技與人之間的藩籬，提供優質科技產品。</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-h">產品</div>
+      <div class="footer-links">
+        <span>筆記型電腦</span><span>桌上型電腦</span><span>顯示器</span><span class="d-only">配件</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-h">系列</div>
+      <div class="footer-links">
+        <span>Predator</span><span>ConceptD</span><span>Swift</span><span class="d-only">Aspire</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-h">支援</div>
+      <div class="footer-links">
+        <span>驅動程式下載</span><span>保固查詢</span><span>聯絡客服</span><span class="d-only">FAQ</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-rule"></div>
+  <div class="footer-disclaimer">
+    <p>概念性專案，與 Acer 官方無關。規格數據取自 Acer 台灣官方網站產品頁。</p>
+    <p>Product imagery and specifications © Acer Inc., used for conceptual purposes only.</p>
+  </div>
+  <div class="footer-base">
+    <span>© 2025 Acer Inc. 版權所有</span>
+    <span class="spacer"></span>
+    <span class="legal d-only"><span>隱私政策</span><span>使用條款</span></span>
+  </div>
+</footer>
+
+<!-- Sticky Buy Bar -->
+<div class="sticky-buy" id="stickyBuy" aria-label="購買列">
+  <span class="sbb-name model-no"><span class="full">Swift Go 14 AI</span><span class="short">Swift Go 14</span></span>
+  <span class="spacer"></span>
+  <span class="sbb-price price">NT$46,900</span>
+  <button class="sbb-cta" data-toast="checkout">加入購物車</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

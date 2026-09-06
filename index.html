@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acer Redesign — 概念性 Demo</title>
+<meta name="description" content="Acer 筆電購買流程的概念性 redesign。兩頁可操作 demo：列表頁把重量獨立成列、比較做成保留上下文的 overlay；詳細頁用 Spec Visualization 把形容詞換算成可驗證的數字。與 Acer 官方無關。">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="canonical" href="https://leortsai.github.io/acer-redesign-demo/index.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Acer Redesign — 概念性 Demo">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="Acer Redesign — 概念性 Demo">
+<meta property="og:description" content="Acer 筆電購買流程的概念性 redesign。兩頁可操作 demo：列表頁把重量獨立成列、比較做成保留上下文的 overlay；詳細頁用 Spec Visualization 把形容詞換算成可驗證的數字。與 Acer 官方無關。">
+<meta property="og:url" content="https://leortsai.github.io/acer-redesign-demo/index.html">
+<meta property="og:image" content="https://leortsai.github.io/acer-redesign-demo/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Acer 官網 Redesign — 讓規格表成為主角：兩台筆電的規格比較介面，價格與較優規格以綠色標示">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Acer Redesign — 概念性 Demo">
+<meta name="twitter:description" content="Acer 筆電購買流程的概念性 redesign。兩頁可操作 demo：列表頁把重量獨立成列、比較做成保留上下文的 overlay；詳細頁用 Spec Visualization 把形容詞換算成可驗證的數字。與 Acer 官方無關。">
+<meta name="twitter:image" content="https://leortsai.github.io/acer-redesign-demo/images/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!-- token 區塊與 laptops-list.html 逐字相同，由 style.css 提供 -->
+<link rel="stylesheet" href="style.css">
+<style>
+/* ============ 首頁 — 只用既有 token，不新增色碼 ============ */
+.index-main{
+  max-width:1440px;margin:0 auto;
+  padding:var(--space-24) 80px var(--space-16);
+}
+.index-eyebrow{
+  font-family:var(--font-data);
+  font-size:var(--fs-label);font-weight:var(--fw-medium);
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-secondary);
+  margin-bottom:var(--space-4);
+}
+.index-title{
+  font-size:var(--fs-display);font-weight:var(--fw-black);
+  line-height:var(--lh-tight);letter-spacing:-.01em;
+  max-width:16ch;
+}
+.index-title .accent{color:var(--text-action)}
+.index-lede{
+  margin-top:var(--space-6);
+  max-width:56ch;
+  font-size:var(--fs-h4);line-height:var(--lh-base);
+  color:var(--text-secondary);
+}
+
+/* Hero — 雙欄：文案 + 產品圖 */
+.hero{
+  /* 圖片欄放大：文案 .86 / 圖片 1.14 */
+  display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
+  gap:var(--space-12);align-items:center;
+}
+.hero-media{
+  /* 無框：產品圖直接落在頁面上，不做卡片 */
+  display:block;text-decoration:none;
+  overflow:hidden;          /* 讓 img 的 translateX 被裁在欄寬內，不破壞 80px 版面邊界 */
+  animation:heroIn var(--duration-fast) var(--ease-out) both;
+}
+.hero-media img{
+  /* 圖檔上方有 130px 死留白、下方只有 53px：
+     object-position 底端對齊把上方多餘的裁掉，機身才會視覺置中。
+     translateX 是往右的視覺微調——左側露出的是頁面白底，與圖檔白底同色，看不出來。 */
+  width:100%;aspect-ratio:16/10;
+  object-fit:cover;object-position:center 100%;
+  transform:translateX(2.85%);   /* 用 % 才會隨欄寬等比縮放 */
+  display:block;
+}
+.hero-cap{
+  /* 左右內縮到機身邊界（由裁切後機身位置算出），文字才不會突出到機身之外 */
+  display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4);
+  margin:var(--space-4) 4.8% 0 9.3%;
+  padding-top:var(--space-3);
+  border-top:1px solid var(--border-faint);
+}
+.hero-cap b{
+  font-family:var(--font-data);
+  font-size:var(--fs-body-sm);font-weight:var(--fw-bold);
+  color:var(--text-primary);
+}
+.hero-cap .go{
+  font-size:var(--fs-body-sm);font-weight:var(--fw-medium);
+  color:var(--text-action);white-space:nowrap;
+}
+.hero-cap .arrow{
+  display:inline-block;
+  transition:transform var(--duration-instant) var(--ease-out);
+}
+.hero-media:hover .hero-cap .go{text-decoration:underline;text-underline-offset:3px}
+.hero-media:hover .hero-cap .arrow{transform:translateX(3px)}
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:none}
+}
+
+/* 研究發現數據列 */
+.stats{
+  margin-top:var(--space-24);
+  border-top:1px solid var(--border);padding-top:var(--space-8);
+}
+.stats-h{
+  font-size:var(--fs-label);font-weight:var(--fw-bold);
+  color:var(--text-primary);margin-bottom:var(--space-8);
+}
+.stat-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--space-12);
+}
+.stat{padding-top:var(--space-4);border-top:2px solid var(--green-500)} /* 綠只當圖形，不當文字 */
+.stat-n{
+  font-family:var(--font-data);font-variant-numeric:tabular-nums;
+  font-size:var(--fs-h1);font-weight:var(--fw-black);
+  line-height:var(--lh-tight);color:var(--text-primary);
+  display:flex;align-items:baseline;gap:var(--space-2);
+}
+.stat-n .of{font-size:var(--fs-h4);font-weight:var(--fw-medium);color:var(--text-muted)}
+.stat-d{
+  margin-top:var(--space-3);
+  font-size:var(--fs-body-sm);line-height:var(--lh-base);color:var(--text-secondary);
+}
+.stat-d b{color:var(--text-primary);font-weight:var(--fw-bold)}
+
+/* 範圍聲明 */
+.scope-block{
+  margin-top:var(--space-12);
+  border-top:1px solid var(--border);
+  padding-top:var(--space-8);
+}
+.scope-h{
+  font-size:var(--fs-label);font-weight:var(--fw-bold);
+  color:var(--text-primary);margin-bottom:var(--space-4);
+}
+.scope-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--space-8) var(--space-12);
+}
+.scope-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
+.scope-list li{
+  font-size:var(--fs-body-sm);line-height:var(--lh-base);
+  color:var(--text-secondary);
+  padding-left:var(--space-6);position:relative;
+}
+.scope-list li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:8px;height:2px;border-radius:1px;background:var(--track);
+}
+.scope-list.is-in li::before{background:var(--green-500)}
+.scope-list li b{color:var(--text-primary);font-weight:var(--fw-medium)}
+.scope-cap{
+  font-size:var(--fs-caption);color:var(--text-muted);
+  margin-top:var(--space-3);line-height:var(--lh-base);
+}
+
+/* CTA */
+.index-cta-row{
+  margin-top:var(--space-10);
+  display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:center;
+}
+.btn-start{
+  display:inline-flex;align-items:center;gap:var(--space-3);
+  background:var(--action);color:var(--gray-900);
+  font-size:var(--fs-h4);font-weight:var(--fw-bold);
+  padding:var(--space-4) var(--space-8);
+  border-radius:6px;text-decoration:none;
+  transition:transform var(--duration-instant) var(--ease-out),
+             box-shadow var(--duration-instant) var(--ease-out);
+}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(13,13,13,.14)}
+.btn-start .arrow{transition:transform var(--duration-instant) var(--ease-out)}
+.btn-start:hover .arrow{transform:translateX(3px)}
+.link-secondary{
+  font-size:var(--fs-body-sm);font-weight:var(--fw-medium);
+  color:var(--text-action);text-decoration:underline;text-underline-offset:3px;
+}
+
+/* 兩頁索引 */
+.page-index{
+  margin-top:var(--space-24);
+  border-top:1px solid var(--border);padding-top:var(--space-10);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-8);
+}
+.page-card{
+  display:block;text-decoration:none;
+  border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;background:var(--surface);
+  transition:border-color var(--duration-instant) var(--ease-out),
+             transform var(--duration-instant) var(--ease-out);
+}
+.page-card:hover{border-color:var(--green-600);transform:translateY(-2px)}
+.page-card .thumb{
+  /* 產品圖是不透明白底（非去背），所以底色用白、圖鋪滿到邊，
+     才不會出現「灰底上疊一塊白方塊」的接縫 */
+  background:var(--surface);
+  aspect-ratio:3/2;overflow:hidden;
+  border-bottom:1px solid var(--border-faint);
+}
+.page-card .thumb img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  transition:transform var(--duration-fast) var(--ease-out);
+}
+.page-card:hover .thumb img{transform:scale(1.03)}
+.page-card .meta{padding:var(--space-6)}
+.page-card .n{
+  font-family:var(--font-data);font-size:var(--fs-micro);
+  font-weight:var(--fw-medium);letter-spacing:.1em;
+  color:var(--text-muted);
+}
+.page-card .h{
+  font-size:var(--fs-h4);font-weight:var(--fw-bold);
+  color:var(--text-primary);margin:var(--space-2) 0 var(--space-2);
+}
+.page-card .d{font-size:var(--fs-body-sm);line-height:var(--lh-base);color:var(--text-secondary)}
+
+/* 手機 */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr;gap:var(--space-10)}
+  .hero-media{order:-1}          /* 窄螢幕先看到產品，再讀文案 */
+  .stat-grid{grid-template-columns:1fr;gap:var(--space-8)}
+}
+@media (max-width:768px){
+  .index-main{padding:var(--space-12) 20px var(--space-10)}
+  .index-title{max-width:none}
+  .scope-grid{grid-template-columns:1fr;gap:var(--space-6)}
+  .page-index{grid-template-columns:1fr;margin-top:var(--space-16)}
+  .btn-start{width:100%;justify-content:center}
+  .stats{margin-top:var(--space-16)}
+  .hero-cap{margin-left:9.3%;margin-right:4.8%}
+  .stat-n{font-size:var(--fs-h2)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .btn-start,.btn-start .arrow,.page-card,.page-card .thumb img{transition:none}
+  .hero-media{animation:none}
+  .hero-cap .arrow{transition:none}
+  .hero-media:hover .hero-cap .arrow{transform:none}
+  .btn-start:hover,.page-card:hover,.btn-start:hover .arrow,
+  .page-card:hover .thumb img{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 範圍聲明（sticky top，與兩頁一致） -->
+<div class="scope-banner" role="note">
+  <span>概念性 demo · 實作筆電列表頁與產品詳細頁 · 與 Acer 官方無關</span>
+  <span>首頁與其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
+</div>
+
+<!-- nav（靜態，與兩頁一致） -->
+<header class="nav">
+  <div class="nav-logo"><img src="images/acer-logo-green.svg" alt="Acer"></div>
+  <nav class="nav-links" aria-label="主導覽（示意，未實作）">
+    <a class="nav-link" href="laptops-list.html">筆電</a>
+    <span class="nav-link">桌機</span>
+    <span class="nav-link">顯示器</span>
+    <span class="nav-link">配件</span>
+    <span class="nav-link">商業方案</span>
+  </nav>
+  <div class="nav-icons">
+    <span class="nav-icon" role="img" aria-label="搜尋（示意，未實作）">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="6.2"/><path d="m13.6 13.6 4 4" stroke-linecap="round"/></svg>
+    </span>
+    <span class="nav-icon" role="img" aria-label="購物車（示意，未實作）">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3h2.2l2 10.4h8.6l1.8-7.2H5.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.6" cy="16.6" r="1.3"/><circle cx="13.9" cy="16.6" r="1.3"/></svg>
+    </span>
+  </div>
+</header>
+
+<main class="index-main">
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="index-eyebrow">Concept Redesign · UX Case Study</p>
+      <h1 class="index-title">把規格<span class="accent">攤開</span>，<br>讓比較留在原地。</h1>
+      <p class="index-lede">
+        Acer 筆電購買流程的概念性 redesign。這裡是兩頁可實際操作的 demo，
+        用來證明兩個靜態截圖說不出來的決策：重量必須能橫向掃視，
+        比較必須是瀏覽過程中的一個動作、而不是一趟離開再回來的旅程。
+      </p>
+      <div class="index-cta-row">
+    <a class="btn-start" href="laptops-list.html">開始瀏覽 <span class="arrow" aria-hidden="true">→</span></a>
+    <a class="link-secondary" href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">在 Figma 看完整原型</a>
+    <a class="link-secondary" href="https://www.figma.com/design/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=18-3&amp;t=sLFlQXpYpwnhzlOE-1" target="_blank" rel="noopener">看 Figma 設計檔</a>
+      </div>
+    </div>
+    <a class="hero-media" href="product-detail.html?model=swift-go-14-ai">
+      <img src="images/swift-go-14-ai-hero.png" alt="Swift Go 14 AI 筆記型電腦，螢幕開啟的斜角視角">
+      <span class="hero-cap">
+        <b>Swift Go 14 AI</b>
+        <span class="go">看產品詳細頁 <span class="arrow" aria-hidden="true">→</span></span>
+      </span>
+    </a>
+  </section>
+
+  <!-- 研究發現：三個數字，全部出自可用性測試與問卷 -->
+  <section class="stats" aria-labelledby="stats-h">
+    <h2 class="stats-h" id="stats-h">為什麼要重做這兩頁</h2>
+    <dl class="stat-grid">
+      <div class="stat">
+        <dt class="stat-n"><span data-numeric>3</span> <span class="of">/ 5</span></dt>
+        <dd class="stat-d">
+          <b>受測者選錯了機型。</b>在「找一台方便攜帶的筆電」任務中，
+          5 人有 3 人選了 2 kg 以上的機型——重量被併在規格字串的第三順位，掃視時看不見。
+        </dd>
+      </div>
+      <div class="stat">
+        <dt class="stat-n"><span data-numeric>50+</span> <span class="of">→ 6</span></dt>
+        <dd class="stat-d">
+          <b>比較欄位收斂。</b>Acer 現行比較頁列出超過 50 項規格、依零件分組，
+          重量排在第 11 組且經常缺值。本設計只留 6 項買家真的會拿來做決定的。
+        </dd>
+      </div>
+      <div class="stat">
+        <dt class="stat-n"><span data-numeric>5</span> <span class="of">/ 5</span></dt>
+        <dd class="stat-d">
+          <b>價格是唯一全員勾選的項目。</b>問卷問「產品頁最注意什麼」，
+          只有價格 5 人全選。而 Acer 現行的比較頁完全不顯示價格。
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- 範圍聲明 -->
+  <section class="scope-block" aria-labelledby="scope-h">
+    <h2 class="scope-h" id="scope-h">範圍聲明</h2>
+    <div class="scope-grid">
+      <div>
+        <ul class="scope-list is-in">
+          <li><b>實作了什麼</b></li>
+          <li>筆電列表頁：六台機型、用途 tabs 與五組側欄篩選、排序、動態 empty state</li>
+          <li>完整比較流程：勾選 → Compare Bar → Overlay → 差異模式 → 關閉後上下文完整保留</li>
+          <li>產品詳細頁（Swift Go 14 AI）：捲動敘事、Spec Visualization 的 pin + scrub、全頁跟隨的購買列</li>
+          <li>桌面 1440 與手機 375 兩種形態，鍵盤可完整操作，支援「減少動態效果」</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="scope-list">
+          <li><b>刻意沒有實作</b></li>
+          <li>首頁、搜尋、登入、購物車與結帳流程</li>
+          <li>詳細頁只做 Swift Go 14 AI 一台；其餘五台會導向同一頁並顯示提示</li>
+          <li>分頁列為靜態視覺，六台一頁顯示完</li>
+          <li>導覽列其餘項目與頁尾連結為靜態樣式，不會有點了沒反應的元素</li>
+        </ul>
+        <p class="scope-cap">
+          概念性專案，與 Acer 官方無關。規格數據取自 Acer 台灣官方網站產品頁。<br>
+          Product imagery and specifications © Acer Inc., used for conceptual purposes only.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 兩頁索引 -->
+  <nav class="page-index" aria-label="Demo 頁面">
+    <a class="page-card" href="laptops-list.html">
+      <div class="thumb"><img src="images/predator-helios-neo-16-list.jpg" alt="Predator Helios Neo 16 AI 筆記型電腦正面視角"></div>
+      <div class="meta">
+        <div class="n">01</div>
+        <div class="h">筆記型電腦列表頁</div>
+        <p class="d">篩選、排序，以及勾選兩台之後浮出的比較 overlay。關掉它，你會停在原本的捲動位置。</p>
+      </div>
+    </a>
+    <a class="page-card" href="product-detail.html?model=swift-go-14-ai">
+      <div class="thumb"><img src="images/swift-go-14-ai-list.png" alt="Swift Go 14 AI 筆記型電腦正面視角"></div>
+      <div class="meta">
+        <div class="n">02</div>
+        <div class="h">Swift Go 14 AI 產品詳細頁</div>
+        <p class="d">先感受、再證明：捲到中段時，「輕盈」被當場換算成 1.39 這個可驗證的數字。</p>
+      </div>
+    </a>
+  </nav>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-cols">
+    <div class="footer-col is-brand">
+      <div class="footer-logo"><img src="images/acer-logo-white.svg" alt="Acer"></div>
+      <p class="footer-about">致力於打破科技與人之間的藩籬，提供優質科技產品。</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-h">產品</div>
+      <div class="footer-links">
+        <span>筆記型電腦</span><span>桌上型電腦</span><span>顯示器</span><span class="d-only">配件</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-h">支援</div>
+      <div class="footer-links">
+        <span>驅動程式下載</span><span>保固查詢</span><span>聯絡客服</span><span class="d-only">FAQ</span>
+      </div>
+    </div>
+    <div class="footer-col d-only">
+      <div class="footer-h">公司</div>
+      <div class="footer-links">
+        <span>關於 Acer</span><span>新聞中心</span><span>企業責任</span><span>投資人關係</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-rule"></div>
+  <div class="footer-base">
+    <span>© 2025 Acer Inc. 版權所有</span>
+    <span class="spacer"></span>
+    <span class="legal d-only"><span>隱私政策</span><span>使用條款</span></span>
+  </div>
+</footer>
+
+</body>
+</html>
