@@ -134,12 +134,11 @@
 }
 .scope-list.is-in li::before{background:var(--green-500)}
 .scope-list li b{color:var(--text-primary);font-weight:var(--fw-medium)}
-.scope-cap{
-  font-size:var(--fs-caption);color:var(--text-muted);
-  margin-top:var(--space-3);line-height:var(--lh-base);
+.scope-sub{
+  font-size:var(--fs-body-sm);font-weight:var(--fw-medium);
+  color:var(--text-primary);
+  margin-bottom:var(--space-4);
 }
-/* 免責聲明現在是該欄唯一元素，去掉上邊距才會與左欄首行切齊 */
-.scope-grid > div > .scope-cap:first-child{margin-top:0}
 
 /* CTA */
 .index-cta-row{
@@ -283,21 +282,19 @@
   <!-- 範圍聲明 -->
   <section class="scope-block" aria-labelledby="scope-h">
     <h2 class="scope-h" id="scope-h">範圍聲明</h2>
+    <p class="scope-sub">實作了什麼</p>
     <div class="scope-grid">
       <div>
         <ul class="scope-list is-in">
-          <li><b>實作了什麼</b></li>
           <li>筆電列表頁：六台機型、用途 tabs 與五組側欄篩選、排序、動態 empty state</li>
           <li>完整比較流程：勾選 → Compare Bar → Overlay → 差異模式 → 關閉後上下文完整保留</li>
-          <li>產品詳細頁（Swift Go 14 AI）：捲動敘事、Spec Visualization 的 pin + scrub、全頁跟隨的購買列</li>
-          <li>桌面 1440 與手機 375 兩種形態，鍵盤可完整操作，支援「減少動態效果」</li>
         </ul>
       </div>
       <div>
-        <p class="scope-cap">
-          概念性專案，與 Acer 官方無關。規格數據取自 Acer 台灣官方網站產品頁。<br>
-          Product imagery and specifications © Acer Inc., used for conceptual purposes only.
-        </p>
+        <ul class="scope-list is-in">
+          <li>產品詳細頁（Swift Go 14 AI）：捲動敘事、Spec Visualization 的 pin + scrub、全頁跟隨的購買列</li>
+          <li>桌面 1440 與手機 375 兩種形態，鍵盤可完整操作，支援「減少動態效果」</li>
+        </ul>
       </div>
     </div>
   </section>
