@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# 內部文件：建置說明書不需要跟著網站一起公開
+production-guide-*.md
+
+# 舊版與被取代的素材（保留在本機，不發佈）
+old/
