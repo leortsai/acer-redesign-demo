@@ -125,6 +125,8 @@ img{max-width:100%;display:block}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--green-700);outline-offset:2px;border-radius:4px}
+.ov-row{display:contents}
+.nw{white-space:nowrap}
 .sr-only{
   position:absolute;width:1px;height:1px;padding:0;margin:-1px;
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
@@ -247,7 +249,7 @@ a{color:inherit}
 .fopt input:focus-visible + .box{outline:2px solid var(--green-700);outline-offset:2px}
 .fopt .cnt{margin-left:auto;font-size:11px;color:var(--text-faint)}
 .fopt.is-disabled{opacity:.4;cursor:not-allowed}
-.chip-row{display:flex;gap:6px}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap}
 .chip{
   flex:1;border:1px solid var(--border-strong);border-radius:20px;
   padding:5px 10px;font-size:11px;font-weight:500;color:#555;
@@ -284,8 +286,19 @@ a{color:inherit}
 .series-pill.s-travelmate{background:rgba(90,60,140,.1);color:#5A3C8C}
 .series-pill.s-nitro{background:rgba(192,72,32,.1);color:#A63D1A}
 .series-pill.s-aspire{background:rgba(42,120,214,.1);color:#2A6ABF}
-.card-name{font-weight:700;font-size:16px;line-height:1.55;margin-top:8px}
-.card-spec{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+/* ===== 第14項：文字截斷（以行數限制，不用 <br> 手動換行）===== */
+.clamp-2{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+  overflow:hidden;
+}
+.card-name{
+  font-weight:700;font-size:16px;line-height:1.55;margin-top:8px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+.card-spec{
+  font-size:11px;color:var(--text-tertiary);margin-top:4px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
 .weight-row{display:flex;align-items:center;gap:6px;margin-top:6px}
 .weight-row .wl{font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11px;color:var(--text-tertiary)}
 .weight-row .wv{font-weight:500;font-size:15px;color:var(--text-primary)}
@@ -293,9 +306,9 @@ a{color:inherit}
 .card-rating .stars{color:var(--star);white-space:nowrap}
 .card-rating .rv{color:var(--rating-num);margin-left:6px;font-family:var(--font-data);font-variant-numeric:tabular-nums}
 .card-divider{height:1px;background:var(--divider);margin:14px 0}
-.card-foot{display:flex;align-items:center;margin-top:auto}
+.card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:auto}
 .card-price{font-weight:900;font-size:18px;line-height:1.55}
-.card-actions{margin-left:auto;display:flex;gap:6px;align-items:center}
+.card-actions{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .cmp{
   display:flex;align-items:center;justify-content:center;
   border:1.5px solid var(--border-strong);border-radius:8px;background:var(--surface);
@@ -303,6 +316,13 @@ a{color:inherit}
 }
 .cmp .cmp-txt{font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11px;color:#555;white-space:nowrap}
 .cmp input{position:absolute;opacity:0;pointer-events:none}
+/* 第13項：以透明 ::before 把點擊範圍撐到 44×44，不改變外觀 */
+@media (max-width:768px){
+  .cmp::before{
+    content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    min-width:44px;min-height:44px;width:100%;height:100%;
+  }
+}
 .cmp.is-checked{border-color:var(--green-600);background:rgba(131,184,26,.08)}
 .cmp.is-checked .cmp-txt{color:var(--green-700);font-weight:700}
 .cmp.is-checked .cmp-txt::before{content:"✓ ";font-family:'Inter',sans-serif}
@@ -386,7 +406,11 @@ a{color:inherit}
 }
 .compare-bar.is-visible{transform:translateY(0);visibility:visible}
 .cb-label{font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:13px;color:var(--text-primary);white-space:nowrap}
-.cb-chips{display:flex;gap:8px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.cb-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0}
+@media (max-width:768px){
+  /* 手機：已選機型維持橫向捲動，不折行 */
+  .cb-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+}
 .cb-chips::-webkit-scrollbar{display:none}
 .cb-chip{
   background:var(--surface-subtle);border:1px solid var(--border);border-radius:20px;
@@ -401,6 +425,8 @@ a{color:inherit}
 }
 .cb-chip button:hover{background:#F2F2F2;color:var(--text-on-action)}
 .compare-bar .spacer{flex:1}
+.cb-hint{font-size:12px;color:var(--text-secondary);white-space:nowrap;margin-right:12px}
+.cb-hint[hidden]{display:none}
 .btn-start-compare{
   background:var(--action);color:var(--text-on-action);border-radius:8px;padding:12px 28px;
   font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:13px;white-space:nowrap;flex:none;
@@ -429,7 +455,7 @@ a{color:inherit}
 .overlay.is-open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
 .ov-header{
   flex:none;height:72px;display:flex;align-items:center;gap:16px;
-  padding:0 52px;border-bottom:1px solid var(--border);background:var(--surface);
+  padding:0 52px;border-bottom:1px solid var(--border);background:var(--surface);;flex-wrap:wrap;gap:8px 12px;
 }
 .ov-title{font-family:'Noto Sans TC',sans-serif;font-weight:900;font-size:22px;line-height:1.25}
 .ov-count{font-size:13px;color:var(--text-muted);font-family:'Noto Sans TC',sans-serif}
@@ -831,11 +857,12 @@ a{color:inherit}
 </footer>
 
 <!-- Compare Bar -->
-<div class="compare-bar" id="compareBar" aria-label="比較列">
-  <span class="cb-label">比較中：<span id="cbCount">0</span> 件商品</span>
+<div class="compare-bar" id="compareBar" role="region" aria-label="比較列">
+  <span class="cb-label" aria-live="polite">比較中：<span id="cbCount">0</span> 件商品</span>
   <div class="cb-chips" id="cbChips"></div>
   <span class="spacer"></span>
-  <button class="btn-start-compare" id="btnStartCompare" disabled>開始比較 →</button>
+  <span class="cb-hint d-only" id="cbHint" hidden>再選 1 台即可比較</span>
+  <button class="btn-start-compare" id="btnStartCompare" disabled aria-describedby="cbHint">開始比較 →</button>
 </div>
 
 <!-- Compare Overlay -->
@@ -843,7 +870,7 @@ a{color:inherit}
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle" aria-hidden="true">
   <div class="ov-header">
     <span class="ov-title" id="ovTitle">商品比較</span>
-    <span class="ov-count"><span id="ovCount">2</span> 件商品</span>
+    <span class="ov-count" aria-live="polite"><span id="ovCount">2</span> 件商品</span>
     <span class="spacer"></span>
     <div class="diff-wrap">
       <span class="diff-label" id="diffLabel">差異模式</span>
@@ -851,8 +878,9 @@ a{color:inherit}
     </div>
     <button class="btn-ov-close" id="btnOvClose">關閉 ✕</button>
   </div>
-  <div class="ov-scroll" id="ovScroll">
-    <div class="ov-table" id="ovTable"></div>
+  <p class="sr-only" id="diffAnnounce" aria-live="polite"></p>
+  <div class="ov-scroll" id="ovScroll" tabindex="0" role="region" aria-label="比較表，可左右捲動">
+    <div class="ov-table" id="ovTable" role="table" aria-label="機型規格比較表"></div>
   </div>
 </div>
 
@@ -883,6 +911,7 @@ const PRODUCTS = [
       weight: '2.7 kg',
       memory: '16GB DDR5 · 可擴充',
       display: '16" WQXGA 240Hz',
+        battery: '約 8 小時 · 90 Wh',
       cpu: 'Core Ultra 9 + RTX 5070 Ti',
       storage: '512GB PCIe 4.0',
       price: 'NT$74,900'
@@ -906,6 +935,7 @@ const PRODUCTS = [
     compare: {
       weight: '1.58 kg', memory: '32GB LPDDR5X · 板載',
       display: '14.5" WQXGA+ OLED 120Hz',
+        battery: '官方未提供 · 76 Wh',
       cpu: 'Core Ultra 7 + RTX 5060',
       storage: '1TB PCIe 4.0', price: 'NT$79,900'
     }
@@ -928,6 +958,7 @@ const PRODUCTS = [
     compare: {
       weight: '1.39 kg', memory: '32GB LPDDR5X · 板載',
       display: '14" WUXGA OLED 60Hz',
+        battery: '約 16 小時 · 65 Wh',
       cpu: 'Core Ultra 7 258V',
       storage: '1TB PCIe 4.0', price: 'NT$46,900'
     }
@@ -950,6 +981,7 @@ const PRODUCTS = [
     compare: {
       weight: '1.42 kg', memory: '16GB DDR5 · 可擴充',
       display: '14" WUXGA 60Hz',
+        battery: '官方未提供',
       cpu: 'Intel Core 5 210H',
       storage: '512GB PCIe 4.0', price: 'NT$39,500'
     }
@@ -972,6 +1004,7 @@ const PRODUCTS = [
     compare: {
       weight: '2.1 kg', memory: '16GB DDR5 · 可擴充',
       display: '16" WUXGA 165Hz',
+        battery: '官方未提供',
       cpu: 'Ryzen 5 + RTX 5060',
       storage: '512GB PCIe 4.0', price: 'NT$44,900'
     }
@@ -994,6 +1027,7 @@ const PRODUCTS = [
     compare: {
       weight: '1.5 kg', memory: '16GB LPDDR5 · 板載',
       display: '15.6" FHD 60Hz',
+        battery: '官方未提供',
       cpu: 'Ryzen AI 5 340',
       storage: '512GB PCIe 4.0', price: 'NT$34,900'
     }
@@ -1248,6 +1282,10 @@ grid.addEventListener('change', e => {
   }
   render();
   renderCompareBar();
+  // 驗收「焦點一直看得見」：grid 以 innerHTML 重繪會讓焦點掉回 body，
+  // 重繪後把焦點放回同一個比較勾選框
+  const again = grid.querySelector('input[data-cmp="' + id + '"]');
+  if (again) again.focus();
 });
 // 達上限時，阻止 disabled 樣式下的點擊（input 仍可聚焦以顯示 tooltip）
 grid.addEventListener('click', e => {
@@ -1268,16 +1306,26 @@ function renderCompareBar() {
     return `<span class="cb-chip"><span class="n">${p.name}</span><button data-remove="${id}" aria-label="從比較移除 ${p.name}">×</button></span>`;
   }).join('');
   btnStartCompare.disabled = ids.length < 2;
+  // 第11項：只選 1 台時顯示提示（桌機），按鈕以 aria-describedby 連到它
+  const hint = document.getElementById('cbHint');
+  hint.hidden = ids.length !== 1;
   compareBar.classList.toggle('is-visible', ids.length >= 1);
   if (state.overlayOpen) renderOverlay();
 }
 document.getElementById('cbChips').addEventListener('click', e => {
   const btn = e.target.closest('button[data-remove]');
   if (!btn) return;
-  state.compare.delete(btn.dataset.remove);
+  const removedId = btn.dataset.remove;
+  const wasLast = state.compare.size === 1;
+  state.compare.delete(removedId);
   render();
   renderCompareBar();
   if (state.overlayOpen && state.compare.size < 2) closeOverlay();
+  // 第11項：移除最後一台後比較列收起，焦點移到該機型卡片的「比較」勾選框
+  if (wasLast) {
+    const box = document.querySelector('input[data-cmp="' + removedId + '"]');
+    if (box) box.focus();
+  }
 });
 
 /* ============ 捲動鎖定（position:fixed 法，關閉時捲動位置不變） ============ */
@@ -1306,6 +1354,11 @@ const ROWS = [
   { key: 'weight', label: '重量', better: 'min', num: p => p.weight },
   { key: 'memory', label: '記憶體', better: 'max', num: p => parseInt(p.compare.memory, 10) || 0 },
   { key: 'display', label: '顯示器', better: null },
+  // 第1項：數值越大越好；查不到小時數者回傳 null，不參與優劣判定
+  { key: 'battery', label: '電池續航', better: 'max', num: p => {
+      const m = (p.compare.battery || '').match(/約\s*([\d.]+)\s*小時/);
+      return m ? parseFloat(m[1]) : null;
+    } },
   { key: 'cpu', label: '處理器', better: null },
   { key: 'storage', label: '儲存', better: 'max', num: p => {
       const m = p.compare.storage.match(/^([\d.]+)\s*(TB|GB)/i);
@@ -1322,36 +1375,60 @@ function renderOverlay() {
   const table = document.getElementById('ovTable');
   table.style.gridTemplateColumns = isMobile() ? `76px repeat(${n}, 1fr)` : `200px repeat(${n}, 1fr)`;
 
-  let html = `<div class="ov-cell is-prodlabel">商品</div>`;
+  // 第9項：表頭列。role="row" 的容器用 display:contents，不影響 grid 版面
+  let html = `<div role="row" class="ov-row">`;
+  html += `<div class="ov-cell is-prodlabel" role="columnheader">商品</div>`;
   html += items.map(p => `
-    <div class="ov-prod">
+    <div class="ov-prod" role="columnheader">
       <div class="ov-prod-imgbox"><img src="${p.compareImg}" alt="${p.name} 產品圖"></div>
       <span class="ov-prod-name">${p.name}</span>
       <span class="ov-prod-price">${p.priceLabel}</span>
       <button class="btn-buy" data-buy="${p.id}">立即選購</button>
     </div>`).join('');
+  html += `</div>`;
 
+  let hiddenCount = 0;
   for (const row of ROWS) {
     const values = items.map(p => p.compare[row.key]);
     const allSame = values.every(v => v === values[0]);
-    if (state.diffMode && allSame) continue; // 差異模式：隱藏完全相同的列
+    if (state.diffMode && allSame) { hiddenCount++; continue; } // 差異模式：隱藏完全相同的列
     let bestSet = new Set();
     if (state.diffMode && row.better && !allSame) {
       const nums = items.map(row.num);
-      const best = row.better === 'min' ? Math.min(...nums) : Math.max(...nums);
-      items.forEach((p, i) => { if (nums[i] === best) bestSet.add(i); });
-      if (bestSet.size === items.length) bestSet = new Set(); // 全數並列＝無差異可標
+      const valid = nums.filter(v => typeof v === 'number' && !Number.isNaN(v));
+      if (valid.length >= 2) {   // 至少兩個可比較的數值才標示較優
+        const best = row.better === 'min' ? Math.min(...valid) : Math.max(...valid);
+        items.forEach((p, i) => { if (nums[i] === best) bestSet.add(i); });
+        if (bestSet.size === valid.length && valid.length === items.length) bestSet = new Set();
+      }
     }
-    html += `<div class="ov-cell is-label">${row.label}</div>`;
+    html += `<div role="row" class="ov-row">`;
+    html += `<div class="ov-cell is-label" role="rowheader">${row.label}</div>`;
     html += items.map((p, i) => {
       const better = bestSet.has(i);
-      return `<div class="ov-cell${better ? ' is-better' : ''}">${p.compare[row.key]}${better ? ' ✓' : ''}</div>`;
+      // ✓ 為裝飾，另以隱藏文字說明；與前一個詞用 nowrap 綁在一起（第14項）
+      const mark = better ? ` <span class="nw"><span aria-hidden="true">✓</span><span class="sr-only">（較優）</span></span>` : '';
+      return `<div class="ov-cell${better ? ' is-better' : ''}" role="cell">${p.compare[row.key]}${mark}</div>`;
     }).join('');
+    html += `</div>`;
   }
   table.innerHTML = html;
+  // 第10項：差異模式切換後朗讀實際隱藏的規格數
+  const ann = document.getElementById('diffAnnounce');
+  if (ann) ann.textContent = state.diffMode
+    ? (hiddenCount > 0 ? '已隱藏 ' + hiddenCount + ' 個相同規格' : '所有規格都不同')
+    : '';
 }
 
 let overlayReturnFocus = null;
+/* 第12項：比較視窗開啟時，overlay 以外的頂層元素一律 inert
+   （鍵盤與輔助技術都進不去，比單純 aria-hidden 更徹底） */
+function setBackgroundInert(on) {
+  for (const el of document.body.children) {
+    if (el === overlay || el === overlayBackdrop) continue;
+    if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+  }
+}
 function openOverlay() {
   if (state.compare.size < 2) return;
   overlayReturnFocus = document.activeElement;
@@ -1361,7 +1438,13 @@ function openOverlay() {
   overlayBackdrop.classList.add('is-open');
   overlay.classList.add('is-open');
   overlay.setAttribute('aria-hidden', 'false');
-  document.getElementById('btnOvClose').focus();
+  setBackgroundInert(true);   // 第12項
+  // click 事件結束後瀏覽器會把焦點給剛被點的按鈕（此時已 inert → 焦點落到 body），
+  // 所以用 setTimeout(0) 等事件完全結束再把焦點移進視窗
+  setTimeout(() => {
+    const close = document.getElementById('btnOvClose');
+    if (state.overlayOpen && close) close.focus();
+  }, 0);
 }
 function closeOverlay() {
   if (!state.overlayOpen) return;
@@ -1369,6 +1452,7 @@ function closeOverlay() {
   overlayBackdrop.classList.remove('is-open');
   overlay.classList.remove('is-open');
   overlay.setAttribute('aria-hidden', 'true');
+  setBackgroundInert(false);  // 第12項
   unlockScroll(); // 捲動位置不變；勾選與篩選 state 完全未動
   btnStartCompare.focus(); // §11：關閉後焦點回到「開始比較」按鈕
 }
