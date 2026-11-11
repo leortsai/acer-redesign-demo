@@ -846,7 +846,8 @@ a{color:inherit}
   </div>
   <div class="footer-rule"></div>
   <div class="footer-disclaimer">
-    <p>概念性專案，與 Acer 官方無關。規格數據取自 Acer 台灣官方網站產品頁。</p>
+    <p>規格與售價取自 Acer 台灣官網與商城（2026 年 11 月查詢）；評分為示意資料。</p>
+    <p>概念性專案，與 Acer 官方無關。</p>
     <p>Product imagery and specifications © Acer Inc., used for conceptual purposes only.</p>
   </div>
   <div class="footer-base">
@@ -901,7 +902,7 @@ const PRODUCTS = [
     weight: 2.7, weightLabel: '2.7 kg',
     rating: 4.8, reviews: 89,
     starsDesktop: '★★★★★', starsMobile: '★★★★★',
-    price: 74900, priceLabel: 'NT$74,900',
+    price: 82900, priceLabel: 'NT$82,900',
     screen: 16, badge: '熱銷',
     features: ['ai'],
     purpose: ['gaming', 'creation'],
@@ -914,7 +915,7 @@ const PRODUCTS = [
         battery: '約 8 小時 · 90 Wh',
       cpu: 'Core Ultra 9 + RTX 5070 Ti',
       storage: '512GB PCIe 4.0',
-      price: 'NT$74,900'
+      price: 'NT$82,900'
     }
   },
   {
@@ -933,10 +934,10 @@ const PRODUCTS = [
     img: 'images/swift-x-14-list.png',
     compareImg: 'images/swift-x-14-list.png',
     compare: {
-      weight: '1.58 kg', memory: '32GB LPDDR5X · 板載',
+      weight: '1.58 kg', memory: '32GB LPDDR5X',
       display: '14.5" WQXGA+ OLED 120Hz',
         battery: '官方未提供 · 76 Wh',
-      cpu: 'Core Ultra 7 + RTX 5060',
+      cpu: 'Core Ultra 7 255H + RTX 5060',
       storage: '1TB PCIe 4.0', price: 'NT$79,900'
     }
   },
@@ -967,23 +968,23 @@ const PRODUCTS = [
     id: 'travelmate-p4-14',
     series: 'TRAVELMATE', seriesLabel: 'TravelMate',
     name: 'TravelMate P4 14',
-    spec: 'Intel Core 5 · 16GB',
-    specMobile: 'Core 5 · 16GB',
-    weight: 1.42, weightLabel: '1.42 kg',
+    spec: 'Intel Core Ultra 7 · 16GB',
+    specMobile: 'Core Ultra 7 · 16GB',
+    weight: 1.24, weightLabel: '1.24 kg',
     rating: 4.4, reviews: 42,
     starsDesktop: '★★★★☆', starsMobile: '★★★★',
-    price: 39500, priceLabel: 'NT$39,500',
+    price: 59000, priceLabel: 'NT$59,000',
     screen: 14, badge: null,
     features: ['business'],
     purpose: ['business'],
     img: 'images/travelmate-p4-14-list.png',
     compareImg: 'images/travelmate-p4-14-list.png',
     compare: {
-      weight: '1.42 kg', memory: '16GB DDR5 · 可擴充',
+      weight: '1.24 kg', memory: '16GB DDR5',
       display: '14" WUXGA 60Hz',
-        battery: '官方未提供',
-      cpu: 'Intel Core 5 210H',
-      storage: '512GB PCIe 4.0', price: 'NT$39,500'
+        battery: '官方未提供 · 53 Wh',
+      cpu: 'Core Ultra 7 255U',
+      storage: '1TB PCIe 4.0', price: 'NT$59,000'
     }
   },
   {
@@ -995,7 +996,7 @@ const PRODUCTS = [
     weight: 2.1, weightLabel: '2.1 kg',
     rating: 4.3, reviews: 193,
     starsDesktop: '★★★★☆', starsMobile: '★★★★',
-    price: 44900, priceLabel: 'NT$44,900',
+    price: 56900, priceLabel: 'NT$56,900',
     screen: 16, badge: '超值',
     features: [],
     purpose: ['gaming'],
@@ -1003,10 +1004,10 @@ const PRODUCTS = [
     compareImg: 'images/nitro-v-16s-list.png',
     compare: {
       weight: '2.1 kg', memory: '16GB DDR5 · 可擴充',
-      display: '16" WUXGA 165Hz',
+      display: '16" WUXGA 180Hz',
         battery: '約 6 小時 · 76 Wh',
       cpu: 'Ryzen 5 + RTX 5060',
-      storage: '512GB PCIe 4.0', price: 'NT$44,900'
+      storage: '512GB PCIe 4.0', price: 'NT$56,900'
     }
   },
   {
@@ -1029,7 +1030,7 @@ const PRODUCTS = [
       display: '15.6" FHD 60Hz',
         battery: '約 10 小時',
       cpu: 'Ryzen 5 7430U',
-      storage: '512GB PCIe 4.0', price: 'NT$34,900'
+      storage: '512GB PCIe 4.0', price: 'NT$34,900（示意價格）'
     }
   }
 ];
@@ -1110,8 +1111,8 @@ function cardHTML(p) {
       <p class="card-spec">${mob ? p.specMobile : p.spec}</p>
       <div class="weight-row"><span class="wl">重量</span><span class="wv">${p.weightLabel}</span></div>
       <p class="card-rating">
-        <span class="stars" aria-hidden="true">${mob ? p.starsMobile : p.starsDesktop}</span><span class="rv" aria-hidden="true">${p.rating}${mob ? '' : ` (${p.reviews})`}</span>
-        <span class="sr-only">評分 ${p.rating} 分（滿分 5 分），共 ${p.reviews} 則評論</span>
+        <span class="stars" aria-hidden="true">${mob ? p.starsMobile : p.starsDesktop}</span><span class="rv" aria-hidden="true">${p.rating}</span>
+        <span class="sr-only">評分 ${p.rating} 分（滿分 5 分，示意資料）</span>
       </p>
       <div class="card-divider"></div>
       <div class="card-foot">
