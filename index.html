@@ -170,6 +170,26 @@
 .hm-sup-desc{margin-top:6px;font-size:var(--fs-label);color:var(--text-secondary);line-height:var(--lh-compact)}
 .hm-sup-go{margin-top:12px;font-size:var(--fs-caption);font-weight:var(--fw-medium);color:var(--text-action)}
 
+
+/* ---------- 進場動畫（沿用詳細頁 §6.1 的語彙：fade + 上移，單次播放）---------- */
+.rv{opacity:0;transform:translateY(20px);
+    transition:opacity var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out)}
+.rv.is-in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s} .rv-d2{transition-delay:.16s}
+.rv-d3{transition-delay:.24s} .rv-d4{transition-delay:.32s}
+/* 系列卡／支援卡的 hover 已在各自規則中定義，此處只處理進場 */
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .rv-d1,.rv-d2,.rv-d3,.rv-d4{transition-delay:0s}
+  .hm-card,.hm-card:hover,.hm-tile,.hm-btn,.hm-bar-fill{transition:none;transform:none}
+}
+/* 長條圖：進場時由 0 長出 */
+.hm-bar-fill{width:0;transition:width var(--duration-data) var(--ease-out)}
+.hm-bars.is-in .hm-bar-fill{width:var(--w)}
+@media (prefers-reduced-motion:reduce){
+  .hm-bar-fill{transition:none;width:var(--w)}
+}
+
 /* ---------- 平板 ---------- */
 @media (max-width:1080px){
   .hm-hero{flex-direction:column}
@@ -208,7 +228,7 @@
 
 <div class="scope-banner" role="note">
   <span>概念性 demo · 實作筆電列表頁與產品詳細頁 · 與 Acer 官方無關</span>
-  <span>首頁與其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
+  <span>其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
 </div>
 
 <!-- nav（靜態，與兩頁一致） -->
@@ -235,7 +255,7 @@
 <main class="hm-main">
 <!-- ============ Hero（Figma 81:2）============ -->
 <section class="hm-hero">
-  <div class="hm-hero-copy">
+  <div class="hm-hero-copy rv">
     <p class="hm-eyebrow">SWIFT SERIES · 2026</p>
     <h1 class="hm-hero-title">設計為你。<br>效能超越。</h1>
     <p class="hm-hero-lede">輕薄機身，不輕薄效能。Intel Core Ultra，全日續航，隨處出發。</p>
@@ -244,26 +264,26 @@
       <a class="hm-link" href="product-detail.html?model=swift-go-14-ai">了解更多 <span aria-hidden="true">→</span></a>
     </div>
   </div>
-  <figure class="hm-hero-media">
+  <figure class="hm-hero-media rv rv-d1">
     <img src="images/home-hero.jpg" alt="Swift Go 14 AI 筆記型電腦，一台開啟展示彩色螢幕、一台闔上展示機背" width="1680" height="1200">
   </figure>
 </section>
 
 <!-- ============ 三分流入口（Figma 82:2）============ -->
 <nav class="hm-triage" aria-label="依用途瀏覽">
-  <a class="hm-tile" href="laptops-list.html?purpose=daily">
+  <a class="hm-tile rv" href="laptops-list.html?purpose=daily">
     <p class="hm-tile-kicker">日常消費</p>
     <p class="hm-tile-title">輕薄 · 多用途</p>
     <p class="hm-tile-desc">Swift、Aspire 系列，兼顧日常與創作需求。</p>
     <p class="hm-tile-go">探索筆電 <span aria-hidden="true">→</span></p>
   </a>
-  <a class="hm-tile is-dark" href="laptops-list.html?purpose=gaming">
+  <a class="hm-tile is-dark rv rv-d1" href="laptops-list.html?purpose=gaming">
     <p class="hm-tile-kicker">電競 Predator</p>
     <p class="hm-tile-title">掠食者速度</p>
     <p class="hm-tile-desc">Helios、Triton 系列，GeForce RTX，無懼挑戰。</p>
     <p class="hm-tile-go">探索 Predator <span aria-hidden="true">→</span></p>
   </a>
-  <a class="hm-tile" href="laptops-list.html?purpose=business">
+  <a class="hm-tile rv rv-d2" href="laptops-list.html?purpose=business">
     <p class="hm-tile-kicker">商用 Business</p>
     <p class="hm-tile-title">企業 · 效率</p>
     <p class="hm-tile-desc">TravelMate 系列，企業級安全，IT 整合。</p>
@@ -278,7 +298,7 @@
     <a class="hm-link" href="laptops-list.html">查看全部筆電 <span aria-hidden="true">→</span></a>
   </div>
   <div class="hm-series-row">
-    <a class="hm-card" href="laptops-list.html?series=SWIFT">
+    <a class="hm-card rv" href="laptops-list.html?series=SWIFT">
       <span class="hm-card-img"><img src="images/home-series-swift.jpg" alt="Swift 系列筆記型電腦" width="644" height="480" loading="lazy"></span>
       <span class="hm-card-body">
         <span class="hm-card-kicker">SWIFT</span>
@@ -288,7 +308,7 @@
         <span class="hm-card-go">探索 Swift <span aria-hidden="true">→</span></span>
       </span>
     </a>
-    <a class="hm-card" href="laptops-list.html?series=ASPIRE">
+    <a class="hm-card rv rv-d1" href="laptops-list.html?series=ASPIRE">
       <span class="hm-card-img"><img src="images/home-series-aspire.jpg" alt="Aspire 系列筆記型電腦" width="644" height="480" loading="lazy"></span>
       <span class="hm-card-body">
         <span class="hm-card-kicker">ASPIRE</span>
@@ -298,7 +318,7 @@
         <span class="hm-card-go">探索 Aspire <span aria-hidden="true">→</span></span>
       </span>
     </a>
-    <a class="hm-card" href="laptops-list.html?series=PREDATOR">
+    <a class="hm-card rv rv-d2" href="laptops-list.html?series=PREDATOR">
       <span class="hm-card-img"><img src="images/home-series-predator.jpg" alt="Predator 系列電競筆記型電腦" width="644" height="480" loading="lazy"></span>
       <span class="hm-card-body">
         <span class="hm-card-kicker">PREDATOR</span>
@@ -308,7 +328,7 @@
         <span class="hm-card-go">探索 Predator <span aria-hidden="true">→</span></span>
       </span>
     </a>
-    <a class="hm-card" href="laptops-list.html?series=TRAVELMATE">
+    <a class="hm-card rv rv-d3" href="laptops-list.html?series=TRAVELMATE">
       <span class="hm-card-img"><img src="images/home-series-travelmate.jpg" alt="TravelMate 系列商務筆記型電腦" width="644" height="480" loading="lazy"></span>
       <span class="hm-card-body">
         <span class="hm-card-kicker">TRAVELMATE</span>
@@ -323,7 +343,7 @@
 
 <!-- ============ Spec Viz（Figma 85:2）— 僅實作「螢幕」分頁 ============ -->
 <section class="hm-spec" aria-labelledby="hm-spec-h">
-  <div class="hm-spec-left">
+  <div class="hm-spec-left rv">
     <p class="hm-eyebrow">SWIFT GO 14 AI — 深入解析</p>
     <h2 class="hm-spec-title" id="hm-spec-h">WUXGA OLED · 16:10</h2>
     <div class="hm-tabs" role="tablist" aria-label="規格分類">
@@ -335,23 +355,23 @@
     <div class="hm-bars" role="tabpanel" id="panel-screen" aria-labelledby="tab-screen">
       <div class="hm-bar">
         <span class="hm-bar-row"><span class="hm-bar-l">解析度</span><span class="hm-bar-v" data-numeric>1920×1200</span></span>
-        <span class="hm-bar-track"><span class="hm-bar-fill" style="width:99%"></span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:99%"></span></span>
       </div>
       <div class="hm-bar">
         <span class="hm-bar-row"><span class="hm-bar-l">螢幕尺寸</span><span class="hm-bar-v" data-numeric>14 吋</span></span>
-        <span class="hm-bar-track"><span class="hm-bar-fill" style="width:100%"></span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:100%"></span></span>
       </div>
       <div class="hm-bar">
         <span class="hm-bar-row"><span class="hm-bar-l">螢幕比例</span><span class="hm-bar-v" data-numeric>16:10</span></span>
-        <span class="hm-bar-track"><span class="hm-bar-fill" style="width:81%"></span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:81%"></span></span>
       </div>
       <div class="hm-bar">
         <span class="hm-bar-row"><span class="hm-bar-l">更新率</span><span class="hm-bar-v" data-numeric>60Hz</span></span>
-        <span class="hm-bar-track"><span class="hm-bar-fill" style="width:65%"></span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:65%"></span></span>
       </div>
     </div>
   </div>
-  <div class="hm-spec-right">
+  <div class="hm-spec-right rv rv-d1">
     <p class="hm-spec-desc">14" 1920×1200 WUXGA OLED 面板，16:10 比例，CineCrystal 亮面顯示。</p>
     <a class="hm-btn-ghost" href="product-detail.html?model=swift-go-14-ai">查看完整規格</a>
   </div>
@@ -359,13 +379,13 @@
 
 <!-- ============ 商用信任帶（Figma 86:2）============ -->
 <section class="hm-biz" aria-labelledby="hm-biz-h">
-  <div class="hm-biz-copy">
+  <div class="hm-biz-copy rv">
     <p class="hm-eyebrow is-on-dark">商用 Business</p>
     <h2 class="hm-biz-title" id="hm-biz-h">企業選擇 Acer 的理由</h2>
     <p class="hm-biz-lede">從 SMB 到跨國企業，Acer 提供完整商業解決方案，包含 IT 管理、SLA 維修承諾與企業採購服務。</p>
     <a class="hm-btn" href="laptops-list.html?purpose=business">了解商業方案</a>
   </div>
-  <dl class="hm-stats">
+  <dl class="hm-stats rv rv-d1">
     <div class="hm-stat">
       <dt class="hm-stat-n"><span data-numeric>500</span><span class="u">+</span></dt>
       <dd class="hm-stat-l">全球企業客戶</dd>
@@ -385,7 +405,7 @@
 <section class="hm-support" aria-labelledby="hm-support-h">
   <h2 class="hm-sec-title" id="hm-support-h">需要協助？</h2>
   <div class="hm-support-row">
-    <div class="hm-sup-card">
+    <div class="hm-sup-card rv ">
       <span class="hm-sup-icon" aria-hidden="true"></span>
       <span class="hm-sup-text">
         <span class="hm-sup-title">服務查詢</span>
@@ -393,7 +413,7 @@
         <span class="hm-sup-go">前往查詢 <span aria-hidden="true">→</span></span>
       </span>
     </div>
-    <div class="hm-sup-card">
+    <div class="hm-sup-card rv rv-d1">
       <span class="hm-sup-icon" aria-hidden="true"></span>
       <span class="hm-sup-text">
         <span class="hm-sup-title">保固登錄</span>
@@ -401,7 +421,7 @@
         <span class="hm-sup-go">立即登錄 <span aria-hidden="true">→</span></span>
       </span>
     </div>
-    <div class="hm-sup-card">
+    <div class="hm-sup-card rv rv-d2">
       <span class="hm-sup-icon" aria-hidden="true"></span>
       <span class="hm-sup-text">
         <span class="hm-sup-title">聯絡我們</span>
@@ -451,5 +471,29 @@
   </div>
 </footer>
 
+
+<script>
+/* 進場動畫：IntersectionObserver，單次播放（沿用詳細頁 §6.1 作法） */
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.rv, .hm-bars');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('is-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  els.forEach(function(el){ io.observe(el); });
+  // 首屏元素立即顯示，避免開頁空白
+  requestAnimationFrame(function(){
+    els.forEach(function(el){
+      if (el.getBoundingClientRect().top < innerHeight * 0.85) el.classList.add('is-in');
+    });
+  });
+})();
+</script>
 </body>
 </html>
