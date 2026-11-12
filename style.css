@@ -17,6 +17,8 @@
   --action:var(--green-500);
   --action-text:var(--green-700);
   --text-action:var(--green-700);
+  /* 淡色底上的綠字：green-700 在 #E8F0E0／淡綠底僅 4.24:1，需再深一階 */
+  --text-action-on-tint:#3D6A10;
   --text-primary:var(--gray-900);
   --text-secondary:#6B6B6B;
   --text-tertiary:#6B6B6B;
@@ -332,7 +334,7 @@ a.nav-link{cursor:pointer;text-decoration:none}
 .review-avatar{
   width:32px;height:32px;border-radius:16px;background:var(--avatar-green-bg);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-data);font-size:var(--fs-caption);font-weight:var(--fw-bold);color:var(--text-action);
+  font-family:var(--font-data);font-size:var(--fs-caption);font-weight:var(--fw-bold);color:var(--text-action-on-tint);
 }
 .review-name{font-family:var(--font-data);font-size:var(--fs-caption);font-weight:var(--fw-bold);color:var(--text-primary)}
 .review-stars{font-family:var(--font-data);font-size:var(--fs-micro);color:var(--rating-num);white-space:pre}
@@ -347,7 +349,7 @@ a.nav-link{cursor:pointer;text-decoration:none}
 .purchase-title{margin-top:12px;font-weight:var(--fw-bold);font-size:var(--fs-body);line-height:var(--lh-base)}
 .purchase-desc{margin-top:10px;font-size:var(--fs-label);color:var(--gray-600);max-width:300px}
 .purchase-cta{
-  margin-top:16px;background:var(--action);color:#fff;border-radius:8px;
+  margin-top:16px;background:var(--action);color:var(--text-on-action);border-radius:8px;
   padding:12px 24px;font-weight:var(--fw-bold);font-size:var(--fs-label);
 }
 .purchase-cta:hover{background:var(--green-600)}
@@ -421,7 +423,7 @@ a.nav-link{cursor:pointer;text-decoration:none}
 .sticky-buy .spacer{flex:1}
 .sbb-price{font-weight:var(--fw-black);font-size:var(--fs-h3);line-height:var(--lh-snug);white-space:nowrap}
 .sbb-cta{
-  background:var(--action);color:#fff;border-radius:8px;padding:14px 36px;
+  background:var(--action);color:var(--text-on-action);border-radius:8px;padding:14px 36px;
   font-weight:var(--fw-bold);font-size:var(--fs-body-sm);white-space:nowrap;flex:none;
 }
 .sbb-cta:hover{background:var(--green-600)}

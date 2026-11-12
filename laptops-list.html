@@ -50,6 +50,8 @@
   --action:var(--green-500);
   --action-text:var(--green-700);
   --text-action:var(--green-700);
+  /* 淡色底上的綠字：green-700 在 #E8F0E0／淡綠底僅 4.24:1，需再深一階 */
+  --text-action-on-tint:#3D6A10;
   --text-primary:var(--gray-900);
   --text-secondary:#6B6B6B;
   --text-tertiary:#6B6B6B;
@@ -361,7 +363,7 @@ a{color:inherit}
   text-decoration:underline;text-underline-offset:2px;font-family:'Noto Sans TC',sans-serif;
 }
 .es-clear{
-  margin-top:24px;display:inline-block;background:var(--action);color:#fff;
+  margin-top:24px;display:inline-block;background:var(--action);color:var(--text-on-action);
   border-radius:8px;padding:10px 24px;
   font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:13px;
 }
@@ -374,7 +376,7 @@ a{color:inherit}
 }
 .page-item.is-plain{color:var(--text-secondary)}
 .page-item.is-box{background:var(--surface);border:1px solid var(--border)}
-.page-item.is-current{background:var(--green-500);border:0;color:#fff;font-weight:700}
+.page-item.is-current{background:var(--green-500);border:0;color:var(--text-on-action);font-weight:700}
 
 /* ============ footer ============ */
 .footer{background:var(--footer-bg);padding:60px 52px 32px;color:#fff}
@@ -555,7 +557,7 @@ a{color:inherit}
   .sheet-backdrop.is-open{pointer-events:auto}
   .fp-head{position:sticky;top:0;background:var(--surface);z-index:1;padding:15px 20px;border-bottom:1px solid var(--border-faint)}
   .btn-sheet-done{
-    display:inline-block;margin-left:16px;background:var(--action);color:#fff;
+    display:inline-block;margin-left:16px;background:var(--action);color:var(--text-on-action);
     border-radius:8px;padding:7px 16px;font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:12px;
   }
   .fgroup{padding:16px 20px}
