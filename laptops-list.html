@@ -50,13 +50,23 @@
   --action:var(--green-500);
   --action-text:var(--green-700);
   --text-action:var(--green-700);
+  /* 淡色底上的綠字：green-700 在 #E8F0E0／淡綠底僅 4.24:1，需再深一階 */
+  --text-action-on-tint:#3D6A10;
   --text-primary:var(--gray-900);
-  --text-secondary:#888888;
-  --text-tertiary:#999999;
-  --text-muted:#AAAAAA;
-  --text-faint:#BBBBBB;
+  --text-secondary:#6B6B6B;
+  --text-tertiary:#6B6B6B;
+  --text-muted:#6B6B6B;
+  --text-faint:#6B6B6B;
   --ink-strong:#333333;
-  --control-border:#CCCCCC;
+  --control-border:#767676;
+  /* 第 2 項：綠底按鈕的文字與狀態（對應 Figma text-on-action / action-hover / action-pressed） */
+  --text-on-action:#0D0D0D;
+  --action-hover:#6FA014;
+  --action-pressed:#5E8A12;
+  --action-disabled-bg:#F2F2F2;
+  --action-disabled-text:#8C8C8C;
+  /* 第 7 項：星等數字（星號本身維持 --star） */
+  --rating-num:#555555;
   --surface:#FFFFFF;
   --surface-subtle:var(--gray-50);
   --border:var(--gray-200);
@@ -69,12 +79,12 @@
   --compare-better-bg:#EAF3DE;
   --pill-green-bg:rgba(131,184,26,.1);
   --avatar-green-bg:#E8F0E0;
-  --star:#E6A800;
+  --star:#946C00;   /* 自 #E6A800 降明度：原值白底僅 2.11:1，星號為可見的評分圖像需達標 */
   --footer-bg:#0D0D0D;
   --on-dark-strong:rgba(255,255,255,.55);
-  --on-dark-mid:rgba(255,255,255,.38);
-  --on-dark-label:rgba(255,255,255,.35);
-  --on-dark-faint:rgba(255,255,255,.28);
+  --on-dark-mid:rgba(255,255,255,.55);
+  --on-dark-label:rgba(255,255,255,.55);
+  --on-dark-faint:rgba(255,255,255,.55);
   --on-dark-rule:rgba(255,255,255,.08);
 
   /* spacing — 8pt grid */
@@ -116,7 +126,13 @@ body{
 img{max-width:100%;display:block}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--green-600);outline-offset:2px;border-radius:4px}
+:focus-visible{outline:2px solid var(--green-700);outline-offset:2px;border-radius:4px}
+.ov-row{display:contents}
+.nw{white-space:nowrap}
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
 .d-only{display:inline}
 .m-only{display:none}
 
@@ -157,7 +173,7 @@ a{color:inherit}
 }
 .breadcrumb a{color:var(--text-secondary);text-decoration:none}
 .breadcrumb a:hover{color:var(--text-primary);text-decoration:underline}
-.breadcrumb .sep{color:#CCC}
+.breadcrumb .sep{color:var(--control-border)}
 .breadcrumb .cur{color:var(--text-primary);font-weight:500}
 
 /* ============ page-header ============ */
@@ -232,10 +248,10 @@ a{color:inherit}
   content:"";position:absolute;left:3.5px;top:0.5px;width:4px;height:8px;
   border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
 }
-.fopt input:focus-visible + .box{outline:2px solid var(--green-600);outline-offset:2px}
-.fopt .cnt{margin-left:auto;font-size:11px;color:#BBB}
+.fopt input:focus-visible + .box{outline:2px solid var(--green-700);outline-offset:2px}
+.fopt .cnt{margin-left:auto;font-size:11px;color:var(--text-faint)}
 .fopt.is-disabled{opacity:.4;cursor:not-allowed}
-.chip-row{display:flex;gap:6px}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap}
 .chip{
   flex:1;border:1px solid var(--border-strong);border-radius:20px;
   padding:5px 10px;font-size:11px;font-weight:500;color:#555;
@@ -258,7 +274,7 @@ a{color:inherit}
 .card-img{height:200px;position:relative;background:var(--surface);flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:contain}
 .badge{
-  position:absolute;left:8px;top:8px;background:var(--green-500);color:#fff;
+  position:absolute;left:8px;top:8px;background:var(--green-500);color:var(--text-on-action);
   font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:11px;
   padding:4px 8px;border-radius:4px;
 }
@@ -268,20 +284,33 @@ a{color:inherit}
   font-size:11px;font-weight:500;letter-spacing:.02em;
 }
 .series-pill.s-predator{background:#0D0D0D;color:#83B81A}
-.series-pill.s-swift{background:rgba(131,184,26,.1);color:#4A7D15}
+.series-pill.s-swift{background:rgba(131,184,26,.1);color:#3D6A10}
 .series-pill.s-travelmate{background:rgba(90,60,140,.1);color:#5A3C8C}
-.series-pill.s-nitro{background:rgba(192,72,32,.1);color:#C04820}
+.series-pill.s-nitro{background:rgba(192,72,32,.1);color:#A63D1A}
 .series-pill.s-aspire{background:rgba(42,120,214,.1);color:#2A6ABF}
-.card-name{font-weight:700;font-size:16px;line-height:1.55;margin-top:8px}
-.card-spec{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+/* ===== 第14項：文字截斷（以行數限制，不用 <br> 手動換行）===== */
+.clamp-2{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+  overflow:hidden;
+}
+.card-name{
+  font-weight:700;font-size:16px;line-height:1.55;margin-top:8px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+.card-spec{
+  font-size:11px;color:var(--text-tertiary);margin-top:4px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
 .weight-row{display:flex;align-items:center;gap:6px;margin-top:6px}
 .weight-row .wl{font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11px;color:var(--text-tertiary)}
 .weight-row .wv{font-weight:500;font-size:15px;color:var(--text-primary)}
-.card-rating{font-size:12px;color:var(--star);margin-top:8px;white-space:pre}
+.card-rating{font-size:12px;margin-top:8px;color:var(--star)}
+.card-rating .stars{color:var(--star);white-space:nowrap}
+.card-rating .rv{color:var(--rating-num);margin-left:6px;font-family:var(--font-data);font-variant-numeric:tabular-nums}
 .card-divider{height:1px;background:var(--divider);margin:14px 0}
-.card-foot{display:flex;align-items:center;margin-top:auto}
+.card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:auto}
 .card-price{font-weight:900;font-size:18px;line-height:1.55}
-.card-actions{margin-left:auto;display:flex;gap:6px;align-items:center}
+.card-actions{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .cmp{
   display:flex;align-items:center;justify-content:center;
   border:1.5px solid var(--border-strong);border-radius:8px;background:var(--surface);
@@ -289,10 +318,17 @@ a{color:inherit}
 }
 .cmp .cmp-txt{font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11px;color:#555;white-space:nowrap}
 .cmp input{position:absolute;opacity:0;pointer-events:none}
+/* 第13項：以透明 ::before 把點擊範圍撐到 44×44，不改變外觀 */
+@media (max-width:768px){
+  .cmp::before{
+    content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    min-width:44px;min-height:44px;width:100%;height:100%;
+  }
+}
 .cmp.is-checked{border-color:var(--green-600);background:rgba(131,184,26,.08)}
 .cmp.is-checked .cmp-txt{color:var(--green-700);font-weight:700}
 .cmp.is-checked .cmp-txt::before{content:"✓ ";font-family:'Inter',sans-serif}
-.cmp:has(input:focus-visible){outline:2px solid var(--green-600);outline-offset:2px}
+.cmp:has(input:focus-visible){outline:2px solid var(--green-700);outline-offset:2px}
 .cmp.is-disabled{opacity:.45;cursor:not-allowed}
 .cmp.is-disabled::after{
   content:"最多比較 4 台";
@@ -303,11 +339,12 @@ a{color:inherit}
 }
 .cmp.is-disabled:hover::after,.cmp.is-disabled:has(input:focus-visible)::after{opacity:1}
 .btn-detail{
-  display:inline-block;background:var(--action);color:#fff;border-radius:8px;
+  display:inline-block;background:var(--action);color:var(--text-on-action);border-radius:8px;
   padding:8px 14px;font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:11px;
   text-decoration:none;white-space:nowrap;
 }
-.btn-detail:hover{background:var(--green-600)}
+.btn-detail:hover{background:var(--action-hover)}
+.btn-detail:active{background:var(--action-pressed)}
 
 @media (prefers-reduced-motion:no-preference){
   .card{animation:cardIn .28s ease-out}
@@ -326,7 +363,7 @@ a{color:inherit}
   text-decoration:underline;text-underline-offset:2px;font-family:'Noto Sans TC',sans-serif;
 }
 .es-clear{
-  margin-top:24px;display:inline-block;background:var(--action);color:#fff;
+  margin-top:24px;display:inline-block;background:var(--action);color:var(--text-on-action);
   border-radius:8px;padding:10px 24px;
   font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:13px;
 }
@@ -339,7 +376,7 @@ a{color:inherit}
 }
 .page-item.is-plain{color:var(--text-secondary)}
 .page-item.is-box{background:var(--surface);border:1px solid var(--border)}
-.page-item.is-current{background:var(--green-500);border:0;color:#fff;font-weight:700}
+.page-item.is-current{background:var(--green-500);border:0;color:var(--text-on-action);font-weight:700}
 
 /* ============ footer ============ */
 .footer{background:var(--footer-bg);padding:60px 52px 32px;color:#fff}
@@ -347,14 +384,14 @@ a{color:inherit}
 .footer-col{flex:1;min-width:0}
 .footer-logo{height:24px;width:99px}
 .footer-logo img{height:100%;width:100%;object-fit:contain}
-.footer-about{margin-top:16px;font-family:'Noto Sans TC',sans-serif;font-size:13px;color:rgba(255,255,255,.38);max-width:260px}
-.footer-h{font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:11px;color:rgba(255,255,255,.35);margin-bottom:18px}
+.footer-about{margin-top:16px;font-family:'Noto Sans TC',sans-serif;font-size:13px;color:var(--on-dark-mid);max-width:260px}
+.footer-h{font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:11px;color:var(--on-dark-label);margin-bottom:18px}
 .footer-links{display:flex;flex-direction:column;gap:11px}
-.footer-links span{font-family:'Noto Sans TC',sans-serif;font-size:13px;color:rgba(255,255,255,.55);cursor:default}
+.footer-links span{font-family:'Noto Sans TC',sans-serif;font-size:13px;color:var(--on-dark-strong);cursor:default}
 .footer-rule{height:1px;background:rgba(255,255,255,.08);margin:48px 0 24px}
-.footer-disclaimer{font-size:12px;color:rgba(255,255,255,.38);line-height:1.55}
+.footer-disclaimer{font-size:12px;color:var(--on-dark-mid);line-height:1.55}
 .footer-disclaimer p+p{margin-top:2px}
-.footer-base{display:flex;align-items:center;font-size:12px;color:rgba(255,255,255,.28)}
+.footer-base{display:flex;align-items:center;font-size:12px;color:var(--on-dark-faint)}
 .footer-base .spacer{flex:1}
 .footer-base .legal{display:flex;gap:24px}
 .footer-base .legal span{cursor:default}
@@ -371,22 +408,37 @@ a{color:inherit}
 }
 .compare-bar.is-visible{transform:translateY(0);visibility:visible}
 .cb-label{font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:13px;color:var(--text-primary);white-space:nowrap}
-.cb-chips{display:flex;gap:8px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.cb-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-width:0}
+@media (max-width:768px){
+  /* 手機：已選機型維持橫向捲動，不折行 */
+  .cb-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+}
 .cb-chips::-webkit-scrollbar{display:none}
 .cb-chip{
   background:var(--surface-subtle);border:1px solid var(--border);border-radius:20px;
   padding:6px 12px;display:flex;gap:6px;align-items:center;white-space:nowrap;flex:none;
 }
 .cb-chip .n{font-weight:500;font-size:12px;color:#333}
-.cb-chip button{font-size:14px;color:#B3B3B3;line-height:1;padding:0 2px}
-.cb-chip button:hover{color:var(--text-primary)}
+.cb-chip button{
+  width:24px;height:24px;flex:none;border-radius:6px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:14px;line-height:1;padding:0;color:#6B6B6B;
+  transition:background var(--duration-instant) var(--ease-out),color var(--duration-instant) var(--ease-out);
+}
+.cb-chip button:hover{background:#F2F2F2;color:var(--text-on-action)}
 .compare-bar .spacer{flex:1}
+.cb-hint{font-size:12px;color:var(--text-secondary);white-space:nowrap;margin-right:12px}
+.cb-hint[hidden]{display:none}
 .btn-start-compare{
-  background:var(--action);color:#fff;border-radius:8px;padding:12px 28px;
+  background:var(--action);color:var(--text-on-action);border-radius:8px;padding:12px 28px;
   font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:13px;white-space:nowrap;flex:none;
 }
-.btn-start-compare:hover{background:var(--green-600)}
-.btn-start-compare:disabled{opacity:.45;cursor:not-allowed}
+.btn-start-compare:hover:not(:disabled){background:var(--action-hover)}
+.btn-start-compare:active:not(:disabled){background:var(--action-pressed)}
+/* 停用態用明確色碼，不用 opacity：opacity 會連焦點框一起變淡且疊色不可預測 */
+.btn-start-compare:disabled{
+  background:var(--action-disabled-bg);color:var(--action-disabled-text);cursor:not-allowed;
+}
 
 /* ============ Compare Overlay ============ */
 .overlay-backdrop{
@@ -405,22 +457,22 @@ a{color:inherit}
 .overlay.is-open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
 .ov-header{
   flex:none;height:72px;display:flex;align-items:center;gap:16px;
-  padding:0 52px;border-bottom:1px solid var(--border);background:var(--surface);
+  padding:0 52px;border-bottom:1px solid var(--border);background:var(--surface);;flex-wrap:wrap;gap:8px 12px;
 }
 .ov-title{font-family:'Noto Sans TC',sans-serif;font-weight:900;font-size:22px;line-height:1.25}
-.ov-count{font-size:13px;color:#AAA;font-family:'Noto Sans TC',sans-serif}
+.ov-count{font-size:13px;color:var(--text-muted);font-family:'Noto Sans TC',sans-serif}
 .ov-header .spacer{flex:1}
 .diff-wrap{display:flex;gap:10px;align-items:center}
 .diff-label{font-family:'Noto Sans TC',sans-serif;font-size:13px;color:#555}
 .switch{
-  width:44px;height:24px;border-radius:12px;background:#CCC;position:relative;
+  width:44px;height:24px;border-radius:12px;background:#767676;position:relative;
   transition:background .18s;flex:none;
 }
 .switch::after{
   content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
   background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .18s;
 }
-.switch[aria-checked="true"]{background:var(--green-500)}
+.switch[aria-checked="true"]{background:var(--green-700)}
 .switch[aria-checked="true"]::after{transform:translateX(20px)}
 .btn-ov-close{
   border:1.5px solid var(--border-strong);border-radius:8px;background:var(--surface);
@@ -446,14 +498,15 @@ a{color:inherit}
 .ov-prod-name{font-weight:700;font-size:14px}
 .ov-prod-price{font-weight:900;font-size:22px;line-height:1.25}
 .btn-buy{
-  background:var(--action);color:#fff;border-radius:8px;padding:10px 18px;
+  background:var(--action);color:var(--text-on-action);border-radius:8px;padding:10px 18px;
   font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:12px;
 }
-.btn-buy:hover{background:var(--green-600)}
+.btn-buy:hover{background:var(--action-hover)}
+.btn-buy:active{background:var(--action-pressed)}
 .ov-cell.is-prodlabel{
   border-color:transparent;background:var(--surface);
   display:flex;align-items:flex-start;padding:28px 10px 20px 0;
-  font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11px;color:#BBB;
+  font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11px;color:var(--text-faint);
 }
 
 /* ============ toast ============ */
@@ -504,7 +557,7 @@ a{color:inherit}
   .sheet-backdrop.is-open{pointer-events:auto}
   .fp-head{position:sticky;top:0;background:var(--surface);z-index:1;padding:15px 20px;border-bottom:1px solid var(--border-faint)}
   .btn-sheet-done{
-    display:inline-block;margin-left:16px;background:var(--action);color:#fff;
+    display:inline-block;margin-left:16px;background:var(--action);color:var(--text-on-action);
     border-radius:8px;padding:7px 16px;font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:12px;
   }
   .fgroup{padding:16px 20px}
@@ -581,7 +634,7 @@ a{color:inherit}
 <!-- 範圍聲明（sticky top） -->
 <div class="scope-banner" role="note">
   <span>概念性 demo · 實作筆電列表頁與產品詳細頁 · 與 Acer 官方無關</span>
-  <span>首頁與其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
+  <span>其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
 </div>
 
 <!-- nav -->
@@ -610,7 +663,7 @@ a{color:inherit}
 
 <!-- breadcrumb -->
 <nav class="breadcrumb" aria-label="breadcrumb">
-  <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">首頁</a>
+  <a href="index.html">首頁</a>
   <span class="sep">›</span>
   <span class="cur" aria-current="page">筆記型電腦</span>
 </nav>
@@ -795,7 +848,8 @@ a{color:inherit}
   </div>
   <div class="footer-rule"></div>
   <div class="footer-disclaimer">
-    <p>概念性專案，與 Acer 官方無關。規格數據取自 Acer 台灣官方網站產品頁。</p>
+    <p>規格與售價取自 Acer 台灣官網與商城（2026 年 11 月查詢）；評分為示意資料。</p>
+    <p>概念性專案，與 Acer 官方無關。</p>
     <p>Product imagery and specifications © Acer Inc., used for conceptual purposes only.</p>
   </div>
   <div class="footer-base">
@@ -806,11 +860,12 @@ a{color:inherit}
 </footer>
 
 <!-- Compare Bar -->
-<div class="compare-bar" id="compareBar" aria-label="比較列">
-  <span class="cb-label">比較中：<span id="cbCount">0</span> 件商品</span>
+<div class="compare-bar" id="compareBar" role="region" aria-label="比較列">
+  <span class="cb-label" aria-live="polite">比較中：<span id="cbCount">0</span> 件商品</span>
   <div class="cb-chips" id="cbChips"></div>
   <span class="spacer"></span>
-  <button class="btn-start-compare" id="btnStartCompare" disabled>開始比較 →</button>
+  <span class="cb-hint d-only" id="cbHint" hidden>再選 1 台即可比較</span>
+  <button class="btn-start-compare" id="btnStartCompare" disabled aria-describedby="cbHint">開始比較 →</button>
 </div>
 
 <!-- Compare Overlay -->
@@ -818,7 +873,7 @@ a{color:inherit}
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle" aria-hidden="true">
   <div class="ov-header">
     <span class="ov-title" id="ovTitle">商品比較</span>
-    <span class="ov-count"><span id="ovCount">2</span> 件商品</span>
+    <span class="ov-count" aria-live="polite"><span id="ovCount">2</span> 件商品</span>
     <span class="spacer"></span>
     <div class="diff-wrap">
       <span class="diff-label" id="diffLabel">差異模式</span>
@@ -826,8 +881,9 @@ a{color:inherit}
     </div>
     <button class="btn-ov-close" id="btnOvClose">關閉 ✕</button>
   </div>
-  <div class="ov-scroll" id="ovScroll">
-    <div class="ov-table" id="ovTable"></div>
+  <p class="sr-only" id="diffAnnounce" aria-live="polite"></p>
+  <div class="ov-scroll" id="ovScroll" tabindex="0" role="region" aria-label="比較表，可左右捲動">
+    <div class="ov-table" id="ovTable" role="table" aria-label="機型規格比較表"></div>
   </div>
 </div>
 
@@ -848,7 +904,7 @@ const PRODUCTS = [
     weight: 2.7, weightLabel: '2.7 kg',
     rating: 4.8, reviews: 89,
     starsDesktop: '★★★★★', starsMobile: '★★★★★',
-    price: 74900, priceLabel: 'NT$74,900',
+    price: 82900, priceLabel: 'NT$82,900',
     screen: 16, badge: '熱銷',
     features: ['ai'],
     purpose: ['gaming', 'creation'],
@@ -858,9 +914,10 @@ const PRODUCTS = [
       weight: '2.7 kg',
       memory: '16GB DDR5 · 可擴充',
       display: '16" WQXGA 240Hz',
+        battery: '約 8 小時 · 90 Wh',
       cpu: 'Core Ultra 9 + RTX 5070 Ti',
       storage: '512GB PCIe 4.0',
-      price: 'NT$74,900'
+      price: 'NT$82,900'
     }
   },
   {
@@ -879,9 +936,10 @@ const PRODUCTS = [
     img: 'images/swift-x-14-list.png',
     compareImg: 'images/swift-x-14-list.png',
     compare: {
-      weight: '1.58 kg', memory: '32GB LPDDR5X · 板載',
+      weight: '1.58 kg', memory: '32GB LPDDR5X',
       display: '14.5" WQXGA+ OLED 120Hz',
-      cpu: 'Core Ultra 7 + RTX 5060',
+        battery: '官方未提供 · 76 Wh',
+      cpu: 'Core Ultra 7 255H + RTX 5060',
       storage: '1TB PCIe 4.0', price: 'NT$79,900'
     }
   },
@@ -903,6 +961,7 @@ const PRODUCTS = [
     compare: {
       weight: '1.39 kg', memory: '32GB LPDDR5X · 板載',
       display: '14" WUXGA OLED 60Hz',
+        battery: '約 16 小時 · 65 Wh',
       cpu: 'Core Ultra 7 258V',
       storage: '1TB PCIe 4.0', price: 'NT$46,900'
     }
@@ -911,22 +970,23 @@ const PRODUCTS = [
     id: 'travelmate-p4-14',
     series: 'TRAVELMATE', seriesLabel: 'TravelMate',
     name: 'TravelMate P4 14',
-    spec: 'Intel Core 5 · 16GB',
-    specMobile: 'Core 5 · 16GB',
-    weight: 1.42, weightLabel: '1.42 kg',
+    spec: 'Intel Core Ultra 7 · 16GB',
+    specMobile: 'Core Ultra 7 · 16GB',
+    weight: 1.24, weightLabel: '1.24 kg',
     rating: 4.4, reviews: 42,
     starsDesktop: '★★★★☆', starsMobile: '★★★★',
-    price: 39500, priceLabel: 'NT$39,500',
+    price: 59000, priceLabel: 'NT$59,000',
     screen: 14, badge: null,
     features: ['business'],
     purpose: ['business'],
     img: 'images/travelmate-p4-14-list.png',
     compareImg: 'images/travelmate-p4-14-list.png',
     compare: {
-      weight: '1.42 kg', memory: '16GB DDR5 · 可擴充',
+      weight: '1.24 kg', memory: '16GB DDR5',
       display: '14" WUXGA 60Hz',
-      cpu: 'Intel Core 5 210H',
-      storage: '512GB PCIe 4.0', price: 'NT$39,500'
+        battery: '官方未提供 · 53 Wh',
+      cpu: 'Core Ultra 7 255U',
+      storage: '1TB PCIe 4.0', price: 'NT$59,000'
     }
   },
   {
@@ -938,7 +998,7 @@ const PRODUCTS = [
     weight: 2.1, weightLabel: '2.1 kg',
     rating: 4.3, reviews: 193,
     starsDesktop: '★★★★☆', starsMobile: '★★★★',
-    price: 44900, priceLabel: 'NT$44,900',
+    price: 56900, priceLabel: 'NT$56,900',
     screen: 16, badge: '超值',
     features: [],
     purpose: ['gaming'],
@@ -946,18 +1006,19 @@ const PRODUCTS = [
     compareImg: 'images/nitro-v-16s-list.png',
     compare: {
       weight: '2.1 kg', memory: '16GB DDR5 · 可擴充',
-      display: '16" WUXGA 165Hz',
+      display: '16" WUXGA 180Hz',
+        battery: '約 6 小時 · 76 Wh',
       cpu: 'Ryzen 5 + RTX 5060',
-      storage: '512GB PCIe 4.0', price: 'NT$44,900'
+      storage: '512GB PCIe 4.0', price: 'NT$56,900'
     }
   },
   {
     id: 'aspire-lite-15',
     series: 'ASPIRE', seriesLabel: 'Aspire',
     name: 'Aspire Lite 15',
-    spec: 'AMD Ryzen AI 5 · 16GB',
-    specMobile: 'Ryzen AI 5 · 16GB',
-    weight: 1.5, weightLabel: '1.5 kg',
+    spec: 'AMD Ryzen 5 · 16GB',
+    specMobile: 'Ryzen 5 · 16GB',
+    weight: 1.7, weightLabel: '1.7 kg',
     rating: 4.2, reviews: 256,
     starsDesktop: '★★★★☆', starsMobile: '★★★★',
     price: 34900, priceLabel: 'NT$34,900',
@@ -967,10 +1028,11 @@ const PRODUCTS = [
     img: 'images/aspire-lite-15-list.jpg',
     compareImg: 'images/aspire-lite-15-list.jpg',
     compare: {
-      weight: '1.5 kg', memory: '16GB LPDDR5 · 板載',
+      weight: '1.7 kg', memory: '16GB DDR4',
       display: '15.6" FHD 60Hz',
-      cpu: 'Ryzen AI 5 340',
-      storage: '512GB PCIe 4.0', price: 'NT$34,900'
+        battery: '約 10 小時',
+      cpu: 'Ryzen 5 7430U',
+      storage: '512GB PCIe 4.0', price: 'NT$34,900（示意價格）'
     }
   }
 ];
@@ -1050,7 +1112,10 @@ function cardHTML(p) {
       <h2 class="card-name">${p.name}</h2>
       <p class="card-spec">${mob ? p.specMobile : p.spec}</p>
       <div class="weight-row"><span class="wl">重量</span><span class="wv">${p.weightLabel}</span></div>
-      <p class="card-rating">${mob ? p.starsMobile : `${p.starsDesktop}  ${p.rating} (${p.reviews})`}</p>
+      <p class="card-rating">
+        <span class="stars" aria-hidden="true">${mob ? p.starsMobile : p.starsDesktop}</span><span class="rv" aria-hidden="true">${p.rating}</span>
+        <span class="sr-only">評分 ${p.rating} 分（滿分 5 分，示意資料）</span>
+      </p>
       <div class="card-divider"></div>
       <div class="card-foot">
         <span class="card-price">${p.priceLabel}</span>
@@ -1220,6 +1285,10 @@ grid.addEventListener('change', e => {
   }
   render();
   renderCompareBar();
+  // 驗收「焦點一直看得見」：grid 以 innerHTML 重繪會讓焦點掉回 body，
+  // 重繪後把焦點放回同一個比較勾選框
+  const again = grid.querySelector('input[data-cmp="' + id + '"]');
+  if (again) again.focus();
 });
 // 達上限時，阻止 disabled 樣式下的點擊（input 仍可聚焦以顯示 tooltip）
 grid.addEventListener('click', e => {
@@ -1240,16 +1309,26 @@ function renderCompareBar() {
     return `<span class="cb-chip"><span class="n">${p.name}</span><button data-remove="${id}" aria-label="從比較移除 ${p.name}">×</button></span>`;
   }).join('');
   btnStartCompare.disabled = ids.length < 2;
+  // 第11項：只選 1 台時顯示提示（桌機），按鈕以 aria-describedby 連到它
+  const hint = document.getElementById('cbHint');
+  hint.hidden = ids.length !== 1;
   compareBar.classList.toggle('is-visible', ids.length >= 1);
   if (state.overlayOpen) renderOverlay();
 }
 document.getElementById('cbChips').addEventListener('click', e => {
   const btn = e.target.closest('button[data-remove]');
   if (!btn) return;
-  state.compare.delete(btn.dataset.remove);
+  const removedId = btn.dataset.remove;
+  const wasLast = state.compare.size === 1;
+  state.compare.delete(removedId);
   render();
   renderCompareBar();
   if (state.overlayOpen && state.compare.size < 2) closeOverlay();
+  // 第11項：移除最後一台後比較列收起，焦點移到該機型卡片的「比較」勾選框
+  if (wasLast) {
+    const box = document.querySelector('input[data-cmp="' + removedId + '"]');
+    if (box) box.focus();
+  }
 });
 
 /* ============ 捲動鎖定（position:fixed 法，關閉時捲動位置不變） ============ */
@@ -1278,6 +1357,11 @@ const ROWS = [
   { key: 'weight', label: '重量', better: 'min', num: p => p.weight },
   { key: 'memory', label: '記憶體', better: 'max', num: p => parseInt(p.compare.memory, 10) || 0 },
   { key: 'display', label: '顯示器', better: null },
+  // 第1項：數值越大越好；查不到小時數者回傳 null，不參與優劣判定
+  { key: 'battery', label: '電池續航', better: 'max', num: p => {
+      const m = (p.compare.battery || '').match(/約\s*([\d.]+)\s*小時/);
+      return m ? parseFloat(m[1]) : null;
+    } },
   { key: 'cpu', label: '處理器', better: null },
   { key: 'storage', label: '儲存', better: 'max', num: p => {
       const m = p.compare.storage.match(/^([\d.]+)\s*(TB|GB)/i);
@@ -1294,36 +1378,60 @@ function renderOverlay() {
   const table = document.getElementById('ovTable');
   table.style.gridTemplateColumns = isMobile() ? `76px repeat(${n}, 1fr)` : `200px repeat(${n}, 1fr)`;
 
-  let html = `<div class="ov-cell is-prodlabel">商品</div>`;
+  // 第9項：表頭列。role="row" 的容器用 display:contents，不影響 grid 版面
+  let html = `<div role="row" class="ov-row">`;
+  html += `<div class="ov-cell is-prodlabel" role="columnheader">商品</div>`;
   html += items.map(p => `
-    <div class="ov-prod">
+    <div class="ov-prod" role="columnheader">
       <div class="ov-prod-imgbox"><img src="${p.compareImg}" alt="${p.name} 產品圖"></div>
       <span class="ov-prod-name">${p.name}</span>
       <span class="ov-prod-price">${p.priceLabel}</span>
       <button class="btn-buy" data-buy="${p.id}">立即選購</button>
     </div>`).join('');
+  html += `</div>`;
 
+  let hiddenCount = 0;
   for (const row of ROWS) {
     const values = items.map(p => p.compare[row.key]);
     const allSame = values.every(v => v === values[0]);
-    if (state.diffMode && allSame) continue; // 差異模式：隱藏完全相同的列
+    if (state.diffMode && allSame) { hiddenCount++; continue; } // 差異模式：隱藏完全相同的列
     let bestSet = new Set();
     if (state.diffMode && row.better && !allSame) {
       const nums = items.map(row.num);
-      const best = row.better === 'min' ? Math.min(...nums) : Math.max(...nums);
-      items.forEach((p, i) => { if (nums[i] === best) bestSet.add(i); });
-      if (bestSet.size === items.length) bestSet = new Set(); // 全數並列＝無差異可標
+      const valid = nums.filter(v => typeof v === 'number' && !Number.isNaN(v));
+      if (valid.length >= 2) {   // 至少兩個可比較的數值才標示較優
+        const best = row.better === 'min' ? Math.min(...valid) : Math.max(...valid);
+        items.forEach((p, i) => { if (nums[i] === best) bestSet.add(i); });
+        if (bestSet.size === valid.length && valid.length === items.length) bestSet = new Set();
+      }
     }
-    html += `<div class="ov-cell is-label">${row.label}</div>`;
+    html += `<div role="row" class="ov-row">`;
+    html += `<div class="ov-cell is-label" role="rowheader">${row.label}</div>`;
     html += items.map((p, i) => {
       const better = bestSet.has(i);
-      return `<div class="ov-cell${better ? ' is-better' : ''}">${p.compare[row.key]}${better ? ' ✓' : ''}</div>`;
+      // ✓ 為裝飾，另以隱藏文字說明；與前一個詞用 nowrap 綁在一起（第14項）
+      const mark = better ? ` <span class="nw"><span aria-hidden="true">✓</span><span class="sr-only">（較優）</span></span>` : '';
+      return `<div class="ov-cell${better ? ' is-better' : ''}" role="cell">${p.compare[row.key]}${mark}</div>`;
     }).join('');
+    html += `</div>`;
   }
   table.innerHTML = html;
+  // 第10項：差異模式切換後朗讀實際隱藏的規格數
+  const ann = document.getElementById('diffAnnounce');
+  if (ann) ann.textContent = state.diffMode
+    ? (hiddenCount > 0 ? '已隱藏 ' + hiddenCount + ' 個相同規格' : '所有規格都不同')
+    : '';
 }
 
 let overlayReturnFocus = null;
+/* 第12項：比較視窗開啟時，overlay 以外的頂層元素一律 inert
+   （鍵盤與輔助技術都進不去，比單純 aria-hidden 更徹底） */
+function setBackgroundInert(on) {
+  for (const el of document.body.children) {
+    if (el === overlay || el === overlayBackdrop) continue;
+    if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+  }
+}
 function openOverlay() {
   if (state.compare.size < 2) return;
   overlayReturnFocus = document.activeElement;
@@ -1333,7 +1441,13 @@ function openOverlay() {
   overlayBackdrop.classList.add('is-open');
   overlay.classList.add('is-open');
   overlay.setAttribute('aria-hidden', 'false');
-  document.getElementById('btnOvClose').focus();
+  setBackgroundInert(true);   // 第12項
+  // click 事件結束後瀏覽器會把焦點給剛被點的按鈕（此時已 inert → 焦點落到 body），
+  // 所以用 setTimeout(0) 等事件完全結束再把焦點移進視窗
+  setTimeout(() => {
+    const close = document.getElementById('btnOvClose');
+    if (state.overlayOpen && close) close.focus();
+  }, 0);
 }
 function closeOverlay() {
   if (!state.overlayOpen) return;
@@ -1341,6 +1455,7 @@ function closeOverlay() {
   overlayBackdrop.classList.remove('is-open');
   overlay.classList.remove('is-open');
   overlay.setAttribute('aria-hidden', 'true');
+  setBackgroundInert(false);  // 第12項
   unlockScroll(); // 捲動位置不變；勾選與篩選 state 完全未動
   btnStartCompare.focus(); // §11：關閉後焦點回到「開始比較」按鈕
 }

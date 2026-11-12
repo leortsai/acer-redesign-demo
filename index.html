@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Acer Redesign — 概念性 Demo</title>
+<title>Acer 台灣 — 筆記型電腦｜Acer Redesign 概念 Demo</title>
 <meta name="description" content="Acer 筆電購買流程的概念性 redesign。兩頁可操作 demo：列表頁把重量獨立成列、比較做成保留上下文的 overlay；詳細頁用 Spec Visualization 把形容詞換算成可驗證的數字。與 Acer 官方無關。">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -13,9 +13,9 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Acer Redesign — 概念性 Demo">
+<meta property="og:site_name" content="Acer 台灣 — 筆記型電腦｜Acer Redesign 概念 Demo">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:title" content="Acer Redesign — 概念性 Demo">
+<meta property="og:title" content="Acer 台灣 — 筆記型電腦｜Acer Redesign 概念 Demo">
 <meta property="og:description" content="Acer 筆電購買流程的概念性 redesign。兩頁可操作 demo：列表頁把重量獨立成列、比較做成保留上下文的 overlay；詳細頁用 Spec Visualization 把形容詞換算成可驗證的數字。與 Acer 官方無關。">
 <meta property="og:url" content="https://leortsai.github.io/acer-redesign-demo/index.html">
 <meta property="og:image" content="https://leortsai.github.io/acer-redesign-demo/images/og.png">
@@ -25,7 +25,7 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Acer Redesign — 概念性 Demo">
+<meta name="twitter:title" content="Acer 台灣 — 筆記型電腦｜Acer Redesign 概念 Demo">
 <meta name="twitter:description" content="Acer 筆電購買流程的概念性 redesign。兩頁可操作 demo：列表頁把重量獨立成列、比較做成保留上下文的 overlay；詳細頁用 Spec Visualization 把形容詞換算成可驗證的數字。與 Acer 官方無關。">
 <meta name="twitter:image" content="https://leortsai.github.io/acer-redesign-demo/images/og.png">
 
@@ -35,202 +35,200 @@
 <!-- token 區塊與 laptops-list.html 逐字相同，由 style.css 提供 -->
 <link rel="stylesheet" href="style.css">
 <style>
-/* ============ 首頁 — 只用既有 token，不新增色碼 ============ */
-.index-main{
-  max-width:1440px;margin:0 auto;
-  padding:var(--space-24) 80px var(--space-16);
+/* ============================================================
+   首頁（依 Figma Home — Desktop 1440 / Mobile 375 實作）
+   僅使用 :root 既有 token，不新增色碼
+   ============================================================ */
+.hm-main{display:block}
+
+/* ---------- 共用 ---------- */
+.hm-eyebrow{
+  font-size:var(--fs-micro);font-weight:var(--fw-medium);
+  color:var(--text-action);line-height:var(--lh-compact);
 }
-.index-eyebrow{
-  font-family:var(--font-data);
+.hm-eyebrow.is-on-dark{color:var(--green-500)}   /* 深底：green-500 對 #0D0D0D 為 8.18:1 */
+.hm-btn{
+  display:inline-flex;align-items:center;
+  background:var(--action);color:var(--text-on-action);
+  font-weight:var(--fw-bold);font-size:var(--fs-label);
+  padding:15px 32px;border-radius:8px;text-decoration:none;white-space:nowrap;
+  transition:background var(--duration-instant) var(--ease-out);
+}
+.hm-btn:hover{background:var(--action-hover)}
+.hm-btn:active{background:var(--action-pressed)}
+.hm-btn-ghost{
+  display:inline-flex;align-items:center;
+  border:1.5px solid var(--border-strong);border-radius:8px;
+  padding:14px 32px;font-size:var(--fs-label);font-weight:var(--fw-medium);
+  color:var(--text-primary);text-decoration:none;background:var(--surface);
+  transition:border-color var(--duration-instant) var(--ease-out);
+}
+.hm-btn-ghost:hover{border-color:var(--green-600)}
+.hm-link{
   font-size:var(--fs-label);font-weight:var(--fw-medium);
-  letter-spacing:.14em;text-transform:uppercase;
-  color:var(--text-secondary);
-  margin-bottom:var(--space-4);
+  color:var(--text-action);text-decoration:none;white-space:nowrap;
 }
-.index-title{
-  font-size:var(--fs-display);font-weight:var(--fw-black);
-  line-height:var(--lh-tight);letter-spacing:-.01em;
-  max-width:16ch;
-}
-.index-title .accent{color:var(--text-action)}
-.index-lede{
-  margin-top:var(--space-6);
-  max-width:56ch;
-  font-size:var(--fs-h4);line-height:var(--lh-base);
-  color:var(--text-secondary);
-}
+.hm-link:hover{text-decoration:underline;text-underline-offset:3px}
+.hm-sec-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.hm-sec-title{font-size:var(--fs-h2);font-weight:var(--fw-bold);line-height:var(--lh-snug);color:var(--text-primary)}
 
-/* Hero — 雙欄：文案 + 產品圖 */
-.hero{
-  /* 圖片欄放大：文案 .86 / 圖片 1.14 */
-  display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
-  gap:var(--space-12);align-items:center;
+/* ---------- Hero（81:2）---------- */
+.hm-hero{display:flex;align-items:stretch;background:var(--surface)}
+.hm-hero-copy{
+  flex:0 0 600px;display:flex;flex-direction:column;justify-content:center;
+  gap:22px;padding:88px 52px;min-width:0;
 }
-.hero-media{
-  /* 無框：產品圖直接落在頁面上，不做卡片 */
-  display:block;text-decoration:none;
-  overflow:hidden;          /* 讓 img 的 translateX 被裁在欄寬內，不破壞 80px 版面邊界 */
-  animation:heroIn var(--duration-fast) var(--ease-out) both;
-}
-.hero-media img{
-  /* 圖檔上方有 130px 死留白、下方只有 53px：
-     object-position 底端對齊把上方多餘的裁掉，機身才會視覺置中。
-     translateX 是往右的視覺微調——左側露出的是頁面白底，與圖檔白底同色，看不出來。 */
-  width:100%;aspect-ratio:16/10;
-  object-fit:cover;object-position:center 100%;
-  transform:translateX(2.85%);   /* 用 % 才會隨欄寬等比縮放 */
-  display:block;
-}
-.hero-cap{
-  /* 左右內縮到機身邊界（由裁切後機身位置算出），文字才不會突出到機身之外 */
-  display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4);
-  margin:var(--space-4) 4.8% 0 9.3%;
-  padding-top:var(--space-3);
-  border-top:1px solid var(--border-faint);
-}
-.hero-cap b{
-  font-family:var(--font-data);
-  font-size:var(--fs-body-sm);font-weight:var(--fw-bold);
-  color:var(--text-primary);
-}
-.hero-cap .go{
-  font-size:var(--fs-body-sm);font-weight:var(--fw-medium);
-  color:var(--text-action);white-space:nowrap;
-}
-.hero-cap .arrow{
-  display:inline-block;
-  transition:transform var(--duration-instant) var(--ease-out);
-}
-.hero-media:hover .hero-cap .go{text-decoration:underline;text-underline-offset:3px}
-.hero-media:hover .hero-cap .arrow{transform:translateX(3px)}
-@keyframes heroIn{
-  from{opacity:0;transform:translateY(16px)}
-  to{opacity:1;transform:none}
-}
+.hm-hero-title{font-size:var(--fs-display);font-weight:var(--fw-black);line-height:var(--lh-tight);color:var(--text-primary)}
+.hm-hero-lede{max-width:340px;font-size:var(--fs-body);line-height:var(--lh-base);color:var(--text-secondary)}
+.hm-cta-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.hm-hero-media{flex:1 1 auto;min-width:0;background:#F4F4F4;overflow:hidden}
+.hm-hero-media img{width:100%;height:100%;object-fit:cover;display:block}
 
-/* 範圍聲明 */
-.scope-block{
-  margin-top:var(--space-12);
-  border-top:1px solid var(--border);
-  padding-top:var(--space-8);
+/* ---------- 三分流入口（82:2）---------- */
+.hm-triage{display:flex;border-block:1px solid var(--border)}
+.hm-tile{
+  flex:1 1 0;min-width:0;display:flex;flex-direction:column;
+  padding:40px 52px;text-decoration:none;
+  background:var(--surface-subtle);border-inline-end:1px solid var(--border);
+  transition:background var(--duration-instant) var(--ease-out);
 }
-.scope-h{
-  font-size:var(--fs-label);font-weight:var(--fw-bold);
-  color:var(--text-primary);margin-bottom:var(--space-4);
-}
-.scope-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:var(--space-8) var(--space-12);
-}
-.scope-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
-.scope-list li{
-  font-size:var(--fs-body-sm);line-height:var(--lh-base);
-  color:var(--text-secondary);
-  padding-left:var(--space-6);position:relative;
-}
-.scope-list li::before{
-  content:"";position:absolute;left:0;top:.62em;
-  width:8px;height:2px;border-radius:1px;background:var(--track);
-}
-.scope-list.is-in li::before{background:var(--green-500)}
-.scope-list li b{color:var(--text-primary);font-weight:var(--fw-medium)}
-.scope-sub{
-  font-size:var(--fs-body-sm);font-weight:var(--fw-medium);
-  color:var(--text-primary);
-  margin-bottom:var(--space-4);
-}
+.hm-tile:last-child{border-inline-end:0}
+.hm-tile:hover{background:var(--surface)}
+.hm-tile-kicker{font-size:var(--fs-micro);font-weight:var(--fw-bold);color:var(--text-action)}
+.hm-tile-title{margin-top:10px;font-size:var(--fs-h2);font-weight:var(--fw-bold);line-height:var(--lh-snug);color:var(--text-primary)}
+.hm-tile-desc{margin-top:8px;font-size:var(--fs-label);line-height:var(--lh-compact);color:var(--text-secondary)}
+.hm-tile-go{margin-top:18px;font-size:var(--fs-caption);font-weight:var(--fw-medium);color:var(--text-action)}
+.hm-tile.is-dark{background:var(--chassis-ink);border-inline-end-color:#222}
+.hm-tile.is-dark:hover{background:#151515}
+.hm-tile.is-dark .hm-tile-kicker,
+.hm-tile.is-dark .hm-tile-go{color:var(--green-500)}
+.hm-tile.is-dark .hm-tile-title{color:#fff}
+.hm-tile.is-dark .hm-tile-desc{color:var(--on-dark-strong)}
 
-/* CTA */
-.index-cta-row{
-  margin-top:var(--space-10);
-  display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:center;
+/* ---------- 精選系列帶（84:2）---------- */
+.hm-series{padding:80px 52px}
+.hm-series-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px}
+.hm-card{
+  display:flex;flex-direction:column;text-decoration:none;
+  border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);
+  transition:border-color var(--duration-instant) var(--ease-out),transform var(--duration-instant) var(--ease-out);
 }
-.btn-start{
-  display:inline-flex;align-items:center;gap:var(--space-3);
-  background:var(--action);color:var(--gray-900);
-  font-size:var(--fs-h4);font-weight:var(--fw-bold);
-  padding:var(--space-4) var(--space-8);
-  border-radius:6px;text-decoration:none;
-  transition:transform var(--duration-instant) var(--ease-out),
-             box-shadow var(--duration-instant) var(--ease-out);
-}
-.btn-start:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(13,13,13,.14)}
-.btn-start .arrow{transition:transform var(--duration-instant) var(--ease-out)}
-.btn-start:hover .arrow{transform:translateX(3px)}
-.link-secondary{
-  font-size:var(--fs-body-sm);font-weight:var(--fw-medium);
-  color:var(--text-action);text-decoration:underline;text-underline-offset:3px;
-}
+.hm-card:hover{border-color:var(--green-600);transform:translateY(-2px)}
+.hm-card-img{display:block;aspect-ratio:322/240;overflow:hidden;background:var(--surface-subtle)}
+.hm-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.hm-card-body{display:flex;flex-direction:column;padding:24px 28px 28px}
+.hm-card-kicker{font-family:var(--font-data);font-size:var(--fs-micro);font-weight:var(--fw-bold);letter-spacing:.06em;color:var(--text-secondary)}
+.hm-card-name{margin-top:10px;font-size:var(--fs-h2);font-weight:var(--fw-bold);line-height:var(--lh-snug);color:var(--text-primary)}
+.hm-card-spec{margin-top:8px;font-size:var(--fs-label);color:var(--text-secondary);line-height:var(--lh-compact)}
+.hm-card-price{margin-top:14px;font-size:var(--fs-h4);font-weight:var(--fw-bold);color:var(--text-primary)}
+.hm-card-go{margin-top:12px;font-size:var(--fs-label);font-weight:var(--fw-medium);color:var(--text-action)}
+.hm-card:hover .hm-card-go{text-decoration:underline;text-underline-offset:3px}
 
-/* 兩頁索引 */
-.page-index{
-  margin-top:var(--space-24);
-  border-top:1px solid var(--border);padding-top:var(--space-10);
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-8);
+/* ---------- Spec Viz（85:2）---------- */
+.hm-spec{display:flex;gap:72px;align-items:flex-start;padding:80px 52px;background:var(--surface)}
+.hm-spec-left{flex:1 1 0;min-width:0}
+.hm-spec-title{margin-top:24px;font-size:var(--fs-h1);font-weight:var(--fw-black);line-height:var(--lh-tight);color:var(--text-primary)}
+.hm-tabs{display:flex;flex-wrap:wrap;gap:0;margin-top:32px;border-bottom:1px solid var(--border)}
+.hm-tab{
+  font-family:inherit;font-size:var(--fs-body-sm);font-weight:var(--fw-medium);
+  padding:10px 20px;background:none;border:0;line-height:var(--lh-compact);
 }
-.page-card{
-  display:block;text-decoration:none;
-  border:1px solid var(--border);border-radius:10px;
-  overflow:hidden;background:var(--surface);
-  transition:border-color var(--duration-instant) var(--ease-out),
-             transform var(--duration-instant) var(--ease-out);
-}
-.page-card:hover{border-color:var(--green-600);transform:translateY(-2px)}
-.page-card .thumb{
-  /* 產品圖是不透明白底（非去背），所以底色用白、圖鋪滿到邊，
-     才不會出現「灰底上疊一塊白方塊」的接縫 */
-  background:var(--surface);
-  aspect-ratio:3/2;overflow:hidden;
-  border-bottom:1px solid var(--border-faint);
-}
-.page-card .thumb img{
-  width:100%;height:100%;
-  object-fit:cover;object-position:center;
-  transition:transform var(--duration-fast) var(--ease-out);
-}
-.page-card:hover .thumb img{transform:scale(1.03)}
-.page-card .meta{padding:var(--space-6)}
-.page-card .n{
-  font-family:var(--font-data);font-size:var(--fs-micro);
-  font-weight:var(--fw-medium);letter-spacing:.1em;
-  color:var(--text-muted);
-}
-.page-card .h{
-  font-size:var(--fs-h4);font-weight:var(--fw-bold);
-  color:var(--text-primary);margin:var(--space-2) 0 var(--space-2);
-}
-.page-card .d{font-size:var(--fs-body-sm);line-height:var(--lh-base);color:var(--text-secondary)}
+.hm-tab.is-on{color:var(--text-primary);font-weight:var(--fw-bold);box-shadow:inset 0 -2px 0 var(--green-500)}
+/* 未實作的分頁：非互動樣式，不做成「點了沒反應」的假按鈕 */
+.hm-tab.is-off{color:var(--text-secondary);cursor:default}
+.hm-bars{margin-top:32px;display:flex;flex-direction:column;gap:18px}
+.hm-bar{display:flex;flex-direction:column;gap:8px}
+.hm-bar-row{display:flex;align-items:baseline;gap:12px}
+.hm-bar-l{font-size:var(--fs-body-sm);color:var(--text-primary);white-space:nowrap}
+.hm-bar-v{margin-left:auto;font-family:var(--font-data);font-variant-numeric:tabular-nums;font-size:var(--fs-label);color:var(--text-primary)}
+.hm-bar-track{display:block;height:5px;border-radius:3px;background:var(--track);overflow:hidden}
+.hm-bar-fill{display:block;height:100%;border-radius:3px;background:var(--green-500)}
+.hm-spec-right{flex:1 1 0;min-width:0;padding-top:96px}
+.hm-spec-desc{max-width:527px;font-size:var(--fs-body);line-height:var(--lh-base);color:var(--text-secondary)}
+.hm-spec-right .hm-btn-ghost{margin-top:32px}
 
-/* 手機 */
-@media (max-width:1080px){
-  .hero{grid-template-columns:1fr;gap:var(--space-10)}
-  .hero-media{order:-1}          /* 窄螢幕先看到產品，再讀文案 */
-}
-@media (max-width:768px){
-  .index-main{padding:var(--space-12) 20px var(--space-10)}
-  .index-title{max-width:none}
-  .scope-grid{grid-template-columns:1fr;gap:var(--space-6)}
-  .page-index{grid-template-columns:1fr;margin-top:var(--space-16)}
-  .btn-start{width:100%;justify-content:center}
-  .hero-cap{margin-left:9.3%;margin-right:4.8%}
-}
+/* ---------- 商用信任帶（86:2）---------- */
+.hm-biz{display:flex;gap:80px;align-items:center;padding:80px 52px;background:var(--chassis-ink)}
+.hm-biz-copy{flex:1 1 0;min-width:0}
+.hm-biz-title{margin-top:12px;max-width:392px;font-size:var(--fs-h1);font-weight:var(--fw-black);line-height:var(--lh-tight);color:#fff}
+.hm-biz-lede{margin-top:20px;max-width:480px;font-size:var(--fs-body);line-height:var(--lh-base);color:var(--on-dark-strong)}
+.hm-biz .hm-btn{margin-top:32px}
+.hm-stats{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:28px}
+.hm-stat{padding-left:20px;border-left:2px solid var(--green-500)}
+.hm-stat-n{display:flex;align-items:baseline;gap:2px;font-family:var(--font-data);font-variant-numeric:tabular-nums;font-weight:var(--fw-black);font-size:var(--fs-h1);line-height:var(--lh-tight);color:#fff}
+.hm-stat-n .u{font-size:var(--fs-h3)}
+.hm-stat-l{margin-top:6px;font-size:var(--fs-label);color:var(--on-dark-strong)}
 
+/* ---------- 支援入口（86:28）---------- */
+.hm-support{padding:72px 52px;background:var(--surface-subtle)}
+.hm-support-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:32px}
+.hm-sup-card{display:flex;gap:20px;align-items:flex-start;padding:32px 40px;background:var(--surface);border:1px solid var(--border)}
+.hm-sup-card + .hm-sup-card{border-inline-start:0}
+.hm-sup-icon{flex:none;width:40px;height:40px;border-radius:8px;background:var(--pill-green-bg)}
+.hm-sup-text{display:flex;flex-direction:column;min-width:0}
+.hm-sup-title{font-size:var(--fs-body);font-weight:var(--fw-bold);line-height:var(--lh-base);color:var(--text-primary)}
+.hm-sup-desc{margin-top:6px;font-size:var(--fs-label);color:var(--text-secondary);line-height:var(--lh-compact)}
+.hm-sup-go{margin-top:12px;font-size:var(--fs-caption);font-weight:var(--fw-medium);color:var(--text-action)}
+
+
+/* ---------- 進場動畫（沿用詳細頁 §6.1 的語彙：fade + 上移，單次播放）---------- */
+.rv{opacity:0;transform:translateY(20px);
+    transition:opacity var(--duration-fast) var(--ease-out),transform var(--duration-fast) var(--ease-out)}
+.rv.is-in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s} .rv-d2{transition-delay:.16s}
+.rv-d3{transition-delay:.24s} .rv-d4{transition-delay:.32s}
+/* 系列卡／支援卡的 hover 已在各自規則中定義，此處只處理進場 */
 @media (prefers-reduced-motion:reduce){
-  .btn-start,.btn-start .arrow,.page-card,.page-card .thumb img{transition:none}
-  .hero-media{animation:none}
-  .hero-cap .arrow{transition:none}
-  .hero-media:hover .hero-cap .arrow{transform:none}
-  .btn-start:hover,.page-card:hover,.btn-start:hover .arrow,
-  .page-card:hover .thumb img{transform:none}
+  .rv{opacity:1;transform:none;transition:none}
+  .rv-d1,.rv-d2,.rv-d3,.rv-d4{transition-delay:0s}
+  .hm-card,.hm-card:hover,.hm-tile,.hm-btn,.hm-bar-fill{transition:none;transform:none}
 }
+/* 長條圖：進場時由 0 長出 */
+.hm-bar-fill{width:0;transition:width var(--duration-data) var(--ease-out)}
+.hm-bars.is-in .hm-bar-fill{width:var(--w)}
+@media (prefers-reduced-motion:reduce){
+  .hm-bar-fill{transition:none;width:var(--w)}
+}
+
+/* ---------- 平板 ---------- */
+@media (max-width:1080px){
+  .hm-hero{flex-direction:column}
+  .hm-hero-copy{flex:none;width:100%;padding:56px 32px}
+  .hm-hero-media{width:100%;aspect-ratio:16/10}
+  .hm-series-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hm-spec{flex-direction:column;gap:40px}
+  .hm-spec-right{padding-top:0}
+  .hm-biz{flex-direction:column;align-items:flex-start;gap:48px}
+  .hm-support-row{grid-template-columns:1fr}
+  .hm-sup-card + .hm-sup-card{border-inline-start:1px solid var(--border);border-block-start:0}
+}
+
+/* ---------- 手機 375（Figma 112:2）---------- */
+@media (max-width:768px){
+  .hm-hero-copy{padding:36px 20px;gap:16px}
+  .hm-hero-media{aspect-ratio:375/260}
+  .hm-triage{flex-direction:column}
+  .hm-tile{padding:24px 20px;border-inline-end:0;border-block-end:1px solid var(--border)}
+  .hm-tile:last-child{border-block-end:0}
+  .hm-series{padding:40px 20px}
+  .hm-series-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
+  .hm-card-body{padding:14px 16px 18px}
+  .hm-card-name{margin-top:6px}
+  .hm-spec{padding:40px 20px}
+  .hm-tabs{margin-top:24px}
+  .hm-tab{padding:9px 14px}
+  .hm-biz{padding:48px 20px;gap:32px}
+  .hm-support{padding:40px 20px}
+  .hm-sup-card{padding:20px}
+}
+
 </style>
 </head>
 <body>
 
-<!-- 範圍聲明（sticky top，與兩頁一致） -->
 <div class="scope-banner" role="note">
   <span>概念性 demo · 實作筆電列表頁與產品詳細頁 · 與 Acer 官方無關</span>
-  <span>首頁與其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
+  <span>其餘流程請見 <a href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">Figma 原型</a></span>
 </div>
 
 <!-- nav（靜態，與兩頁一致） -->
@@ -253,72 +251,186 @@
   </div>
 </header>
 
-<main class="index-main">
 
-  <section class="hero">
-    <div class="hero-copy">
-      <p class="index-eyebrow">Concept Redesign · UX Case Study</p>
-      <h1 class="index-title">把規格<span class="accent">攤開</span>，<br>讓比較留在原地。</h1>
-      <p class="index-lede">
-        Acer 筆電購買流程的概念性 redesign。這裡是兩頁可實際操作的 demo，
-        用來證明兩個靜態截圖說不出來的決策：重量必須能橫向掃視，
-        比較必須是瀏覽過程中的一個動作、而不是一趟離開再回來的旅程。
-      </p>
-      <div class="index-cta-row">
-    <a class="btn-start" href="laptops-list.html">開始瀏覽 <span class="arrow" aria-hidden="true">→</span></a>
-    <a class="link-secondary" href="https://www.figma.com/proto/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=80-2&amp;p=f&amp;t=rNhxzCozjx3zxljE-0&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=80%3A2" target="_blank" rel="noopener">在 Figma 看完整原型</a>
-    <a class="link-secondary" href="https://www.figma.com/design/HEWrjA0NJX4dI037WMmOZ3/ACER-Redesign---Wireframe?node-id=18-3&amp;t=sLFlQXpYpwnhzlOE-1" target="_blank" rel="noopener">看 Figma 設計檔</a>
-      </div>
+<main class="hm-main">
+<!-- ============ Hero（Figma 81:2）============ -->
+<section class="hm-hero">
+  <div class="hm-hero-copy rv">
+    <p class="hm-eyebrow">SWIFT SERIES</p>
+    <h1 class="hm-hero-title">設計為你。<br>效能超越。</h1>
+    <p class="hm-hero-lede">輕薄機身，不輕薄效能。Intel Core Ultra，全日續航，隨處出發。</p>
+    <div class="hm-cta-row">
+      <a class="hm-btn" href="product-detail.html?model=swift-go-14-ai">立即選購</a>
+      <a class="hm-link" href="product-detail.html?model=swift-go-14-ai">了解更多 <span aria-hidden="true">→</span></a>
     </div>
-    <a class="hero-media" href="product-detail.html?model=swift-go-14-ai">
-      <img src="images/swift-go-14-ai-hero.png" alt="Swift Go 14 AI 筆記型電腦，螢幕開啟的斜角視角">
-      <span class="hero-cap">
-        <b>Swift Go 14 AI</b>
-        <span class="go">看產品詳細頁 <span class="arrow" aria-hidden="true">→</span></span>
+  </div>
+  <figure class="hm-hero-media rv rv-d1">
+    <img src="images/home-hero.jpg" alt="Swift Go 14 AI 筆記型電腦，一台開啟展示彩色螢幕、一台闔上展示機背" width="1680" height="1200">
+  </figure>
+</section>
+
+<!-- ============ 三分流入口（Figma 82:2）============ -->
+<nav class="hm-triage" aria-label="依用途瀏覽">
+  <a class="hm-tile rv" href="laptops-list.html?purpose=daily">
+    <p class="hm-tile-kicker">日常消費</p>
+    <p class="hm-tile-title">輕薄 · 多用途</p>
+    <p class="hm-tile-desc">Swift、Aspire 系列，兼顧日常與創作需求。</p>
+    <p class="hm-tile-go">探索筆電 <span aria-hidden="true">→</span></p>
+  </a>
+  <a class="hm-tile is-dark rv rv-d1" href="laptops-list.html?purpose=gaming">
+    <p class="hm-tile-kicker">電競 Predator</p>
+    <p class="hm-tile-title">掠食者速度</p>
+    <p class="hm-tile-desc">Helios、Triton 系列，GeForce RTX，無懼挑戰。</p>
+    <p class="hm-tile-go">探索 Predator <span aria-hidden="true">→</span></p>
+  </a>
+  <a class="hm-tile rv rv-d2" href="laptops-list.html?purpose=business">
+    <p class="hm-tile-kicker">商用 Business</p>
+    <p class="hm-tile-title">企業 · 效率</p>
+    <p class="hm-tile-desc">TravelMate 系列，企業級安全，IT 整合。</p>
+    <p class="hm-tile-go">商業方案 <span aria-hidden="true">→</span></p>
+  </a>
+</nav>
+
+<!-- ============ 精選系列帶（Figma 84:2）============ -->
+<section class="hm-series" aria-labelledby="hm-series-h">
+  <div class="hm-sec-head">
+    <h2 class="hm-sec-title" id="hm-series-h">探索精選系列</h2>
+    <a class="hm-link" href="laptops-list.html">查看全部筆電 <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="hm-series-row">
+    <a class="hm-card rv" href="laptops-list.html?series=SWIFT">
+      <span class="hm-card-img"><img src="images/home-series-swift.jpg" alt="Swift 系列筆記型電腦" width="644" height="480" loading="lazy"></span>
+      <span class="hm-card-body">
+        <span class="hm-card-kicker">SWIFT</span>
+        <span class="hm-card-name">輕薄生活</span>
+        <span class="hm-card-spec">1.39kg 起 · AI 處理器</span>
+        <span class="hm-card-price">起 <span data-numeric>NT$15,900</span></span>
+        <span class="hm-card-go">探索 Swift <span aria-hidden="true">→</span></span>
       </span>
     </a>
-  </section>
+    <a class="hm-card rv rv-d1" href="laptops-list.html?series=ASPIRE">
+      <span class="hm-card-img"><img src="images/home-series-aspire.jpg" alt="Aspire 系列筆記型電腦" width="644" height="480" loading="lazy"></span>
+      <span class="hm-card-body">
+        <span class="hm-card-kicker">ASPIRE</span>
+        <span class="hm-card-name">超值全能</span>
+        <span class="hm-card-spec">Ryzen 5 起 · FHD 顯示</span>
+        <span class="hm-card-price">起 <span data-numeric>NT$9,999</span></span>
+        <span class="hm-card-go">探索 Aspire <span aria-hidden="true">→</span></span>
+      </span>
+    </a>
+    <a class="hm-card rv rv-d2" href="laptops-list.html?series=PREDATOR">
+      <span class="hm-card-img"><img src="images/home-series-predator.jpg" alt="Predator 系列電競筆記型電腦" width="644" height="480" loading="lazy"></span>
+      <span class="hm-card-body">
+        <span class="hm-card-kicker">PREDATOR</span>
+        <span class="hm-card-name">掠食者</span>
+        <span class="hm-card-spec">RTX 5060 起 · 2K 顯示</span>
+        <span class="hm-card-price">起 <span data-numeric>NT$65,900</span></span>
+        <span class="hm-card-go">探索 Predator <span aria-hidden="true">→</span></span>
+      </span>
+    </a>
+    <a class="hm-card rv rv-d3" href="laptops-list.html?series=TRAVELMATE">
+      <span class="hm-card-img"><img src="images/home-series-travelmate.jpg" alt="TravelMate 系列商務筆記型電腦" width="644" height="480" loading="lazy"></span>
+      <span class="hm-card-body">
+        <span class="hm-card-kicker">TRAVELMATE</span>
+        <span class="hm-card-name">商旅之選</span>
+        <span class="hm-card-spec">TPM 2.0 · Windows 11 Pro</span>
+        <span class="hm-card-price">起 <span data-numeric>NT$40,000</span></span>
+        <span class="hm-card-go">探索 TravelMate <span aria-hidden="true">→</span></span>
+      </span>
+    </a>
+  </div>
+</section>
 
-  <!-- 範圍聲明 -->
-  <section class="scope-block" aria-labelledby="scope-h">
-    <h2 class="scope-h" id="scope-h">範圍聲明</h2>
-    <p class="scope-sub">實作了什麼</p>
-    <div class="scope-grid">
-      <div>
-        <ul class="scope-list is-in">
-          <li>筆電列表頁：六台機型、用途 tabs 與五組側欄篩選、排序、動態 empty state</li>
-          <li>完整比較流程：勾選 → Compare Bar → Overlay → 差異模式 → 關閉後上下文完整保留</li>
-        </ul>
+<!-- ============ Spec Viz（Figma 85:2）— 僅實作「螢幕」分頁 ============ -->
+<section class="hm-spec" aria-labelledby="hm-spec-h">
+  <div class="hm-spec-left rv">
+    <p class="hm-eyebrow">SWIFT GO 14 AI — 深入解析</p>
+    <h2 class="hm-spec-title" id="hm-spec-h">WUXGA OLED · 16:10</h2>
+    <div class="hm-tabs" role="tablist" aria-label="規格分類">
+      <button class="hm-tab is-on" role="tab" aria-selected="true" id="tab-screen" aria-controls="panel-screen">螢幕</button>
+      <span class="hm-tab is-off" role="tab" aria-selected="false" aria-disabled="true" tabindex="-1">效能</span>
+      <span class="hm-tab is-off" role="tab" aria-selected="false" aria-disabled="true" tabindex="-1">電池</span>
+      <span class="hm-tab is-off" role="tab" aria-selected="false" aria-disabled="true" tabindex="-1">重量</span>
+    </div>
+    <div class="hm-bars" role="tabpanel" id="panel-screen" aria-labelledby="tab-screen">
+      <div class="hm-bar">
+        <span class="hm-bar-row"><span class="hm-bar-l">解析度</span><span class="hm-bar-v" data-numeric>1920×1200</span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:99%"></span></span>
       </div>
-      <div>
-        <ul class="scope-list is-in">
-          <li>產品詳細頁（Swift Go 14 AI）：捲動敘事、Spec Visualization 的 pin + scrub、全頁跟隨的購買列</li>
-          <li>桌面 1440 與手機 375 兩種形態，鍵盤可完整操作，支援「減少動態效果」</li>
-        </ul>
+      <div class="hm-bar">
+        <span class="hm-bar-row"><span class="hm-bar-l">螢幕尺寸</span><span class="hm-bar-v" data-numeric>14 吋</span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:100%"></span></span>
+      </div>
+      <div class="hm-bar">
+        <span class="hm-bar-row"><span class="hm-bar-l">螢幕比例</span><span class="hm-bar-v" data-numeric>16:10</span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:81%"></span></span>
+      </div>
+      <div class="hm-bar">
+        <span class="hm-bar-row"><span class="hm-bar-l">更新率</span><span class="hm-bar-v" data-numeric>60Hz</span></span>
+        <span class="hm-bar-track"><span class="hm-bar-fill" style="--w:65%"></span></span>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="hm-spec-right rv rv-d1">
+    <p class="hm-spec-desc">14" 1920×1200 WUXGA OLED 面板，16:10 比例，CineCrystal 亮面顯示。</p>
+    <a class="hm-btn-ghost" href="product-detail.html?model=swift-go-14-ai">查看完整規格</a>
+  </div>
+</section>
 
+<!-- ============ 商用信任帶（Figma 86:2）============ -->
+<section class="hm-biz" aria-labelledby="hm-biz-h">
+  <div class="hm-biz-copy rv">
+    <p class="hm-eyebrow is-on-dark">商用 Business</p>
+    <h2 class="hm-biz-title" id="hm-biz-h">企業選擇 Acer 的理由</h2>
+    <p class="hm-biz-lede">從 SMB 到跨國企業，Acer 提供完整商業解決方案，包含 IT 管理、SLA 維修承諾與企業採購服務。</p>
+    <a class="hm-btn" href="laptops-list.html?purpose=business">了解商業方案</a>
+  </div>
+  <dl class="hm-stats rv rv-d1">
+    <div class="hm-stat">
+      <dt class="hm-stat-n"><span data-numeric>500</span><span class="u">+</span></dt>
+      <dd class="hm-stat-l">全球企業客戶</dd>
+    </div>
+    <div class="hm-stat">
+      <dt class="hm-stat-n"><span data-numeric>72</span><span class="u">hr</span></dt>
+      <dd class="hm-stat-l">SLA 到府服務</dd>
+    </div>
+    <div class="hm-stat">
+      <dt class="hm-stat-n"><span data-numeric>5</span><span class="u">yr</span></dt>
+      <dd class="hm-stat-l">延長保固方案</dd>
+    </div>
+  </dl>
+</section>
 
-  <!-- 兩頁索引 -->
-  <nav class="page-index" aria-label="Demo 頁面">
-    <a class="page-card" href="laptops-list.html">
-      <div class="thumb"><img src="images/predator-helios-neo-16-list.jpg" alt="Predator Helios Neo 16 AI 筆記型電腦正面視角"></div>
-      <div class="meta">
-        <div class="n">01</div>
-        <div class="h">筆記型電腦列表頁</div>
-        <p class="d">篩選、排序，以及勾選兩台之後浮出的比較 overlay。關掉它，你會停在原本的捲動位置。</p>
-      </div>
-    </a>
-    <a class="page-card" href="product-detail.html?model=swift-go-14-ai">
-      <div class="thumb"><img src="images/swift-go-14-ai-list.png" alt="Swift Go 14 AI 筆記型電腦正面視角"></div>
-      <div class="meta">
-        <div class="n">02</div>
-        <div class="h">Swift Go 14 AI 產品詳細頁</div>
-        <p class="d">先感受、再證明：捲到中段時，「輕盈」被當場換算成 1.39 這個可驗證的數字。</p>
-      </div>
-    </a>
-  </nav>
+<!-- ============ 支援入口（Figma 86:28）============ -->
+<section class="hm-support" aria-labelledby="hm-support-h">
+  <h2 class="hm-sec-title" id="hm-support-h">需要協助？</h2>
+  <div class="hm-support-row">
+    <div class="hm-sup-card rv ">
+      <span class="hm-sup-icon" aria-hidden="true"></span>
+      <span class="hm-sup-text">
+        <span class="hm-sup-title">服務查詢</span>
+        <span class="hm-sup-desc">查詢維修進度、保固狀態</span>
+        <span class="hm-sup-go">前往查詢 <span aria-hidden="true">→</span></span>
+      </span>
+    </div>
+    <div class="hm-sup-card rv rv-d1">
+      <span class="hm-sup-icon" aria-hidden="true"></span>
+      <span class="hm-sup-text">
+        <span class="hm-sup-title">保固登錄</span>
+        <span class="hm-sup-desc">登錄您的 Acer 裝置</span>
+        <span class="hm-sup-go">立即登錄 <span aria-hidden="true">→</span></span>
+      </span>
+    </div>
+    <div class="hm-sup-card rv rv-d2">
+      <span class="hm-sup-icon" aria-hidden="true"></span>
+      <span class="hm-sup-text">
+        <span class="hm-sup-title">聯絡我們</span>
+        <span class="hm-sup-desc">線上客服 · 電話 · Email</span>
+        <span class="hm-sup-go">立即聯絡 <span aria-hidden="true">→</span></span>
+      </span>
+    </div>
+  </div>
+</section>
 
 </main>
 
@@ -359,5 +471,29 @@
   </div>
 </footer>
 
+
+<script>
+/* 進場動畫：IntersectionObserver，單次播放（沿用詳細頁 §6.1 作法） */
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.rv, .hm-bars');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('is-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  els.forEach(function(el){ io.observe(el); });
+  // 首屏元素立即顯示，避免開頁空白
+  requestAnimationFrame(function(){
+    els.forEach(function(el){
+      if (el.getBoundingClientRect().top < innerHeight * 0.85) el.classList.add('is-in');
+    });
+  });
+})();
+</script>
 </body>
 </html>
